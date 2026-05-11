@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAPA - Piloto Evento</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #2d1b69 0%, #1a237e 40%, #283593 100%);
+    padding: 24px 16px 48px;
+  }
+
+  .card {
+    max-width: 680px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, #1a237e 0%, #283593 60%, #3949ab 100%);
+    padding: 36px 32px;
+    text-align: center;
+    color: white;
+  }
+  .header-icon { font-size: 36px; margin-bottom: 8px; }
+  .header h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
+  .header p { margin-top: 6px; font-size: 14px; opacity: 0.8; }
+
+  /* ── FORM BODY ── */
+  .form-body { padding: 32px 32px 24px; }
+
+  /* ── SECTIONS ── */
+  .section {
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .section:last-of-type { border-bottom: none; }
+
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a237e;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e8eaf6;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ── FIELDS ── */
+  .field { margin-bottom: 18px; }
+  .field:last-child { margin-bottom: 0; }
+
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #2c2c2c;
+    margin-bottom: 6px;
+  }
+  label .req { color: #e53935; margin-left: 2px; }
+
+  .hint {
+    font-size: 12px;
+    font-weight: 400;
+    color: #888;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  input[type="date"],
+  input[type="text"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    color: #2c2c2c;
+    background: white;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  input[type="date"]:focus,
+  input[type="text"]:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: #3949ab;
+    box-shadow: 0 0 0 3px rgba(57,73,171,0.12);
+  }
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23666' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+  textarea {
+    resize: vertical;
+    min-height: 90px;
+    line-height: 1.5;
+  }
+  input::placeholder, textarea::placeholder { color: #bbb; }
+
+  /* ── RADIO GROUP ── */
+  .radio-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 2px;
+  }
+  .radio-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 16px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    color: #444;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .radio-option input[type="radio"] { display: none; }
+  .radio-option:has(input:checked) {
+    border-color: #3949ab;
+    background: #e8eaf6;
+    color: #1a237e;
+  }
+  .radio-option:hover { border-color: #9fa8da; }
+
+  /* ── CHECKBOX GROUP ── */
+  .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .checkbox-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 14px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #444;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .checkbox-option input[type="checkbox"] { display: none; }
+  .checkbox-option .cb-box {
+    width: 18px; height: 18px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+    font-size: 11px;
+    color: white;
+  }
+  .checkbox-option:has(input:checked) {
+    border-color: #3949ab;
+    background: #e8eaf6;
+    color: #1a237e;
+  }
+  .checkbox-option:has(input:checked) .cb-box {
+    background: #3949ab;
+    border-color: #3949ab;
+  }
+  .checkbox-option:hover { border-color: #9fa8da; }
+
+  /* ── ERROR STATE ── */
+  .field.error input,
+  .field.error select,
+  .field.error textarea {
+    border-color: #e53935;
+  }
+  .error-msg {
+    font-size: 12px;
+    color: #e53935;
+    margin-top: 4px;
+    display: none;
+  }
+  .field.error .error-msg { display: block; }
+
+  /* ── SUBMIT ── */
+  .submit-area { padding: 0 32px 32px; }
+
+  .btn-submit {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #1a237e, #3949ab);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .btn-submit:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(26,35,126,0.35); }
+  .btn-submit:active { transform: translateY(0); }
+  .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  .spinner {
+    display: inline-block;
+    width: 16px; height: 16px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── SUCCESS SCREEN ── */
+  .success-screen {
+    display: none;
+    padding: 48px 32px;
+    text-align: center;
+  }
+  .success-icon { font-size: 64px; margin-bottom: 16px; }
+  .success-screen h2 { font-size: 22px; font-weight: 700; color: #1a237e; margin-bottom: 8px; }
+  .success-screen p { font-size: 14px; color: #666; line-height: 1.6; }
+  .event-id-badge {
+    display: inline-block;
+    margin: 16px auto;
+    padding: 12px 28px;
+    background: #e8eaf6;
+    border: 2px solid #3949ab;
+    border-radius: 10px;
+    font-size: 22px;
+    font-weight: 800;
+    color: #1a237e;
+    letter-spacing: 2px;
+  }
+  .btn-new {
+    margin-top: 20px;
+    padding: 12px 28px;
+    background: white;
+    color: #3949ab;
+    border: 2px solid #3949ab;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-new:hover { background: #e8eaf6; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 500px) {
+    .form-body, .submit-area { padding-left: 20px; padding-right: 20px; }
+    .header { padding: 28px 20px; }
+    .radio-group { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-icon">📋</div>
+    <h1>MAPA - Piloto Evento</h1>
+    <p>Llenar al momento del evento — máximo 12 horas después</p>
+  </div>
+
+  <!-- FORM -->
+  <form id="eventoForm" novalidate>
+  <div class="form-body">
+
+    <!-- IDENTIFICACIÓN -->
+    <div class="section">
+      <div class="section-title">📋 Identificación</div>
+
+      <div class="field" id="f-fecha">
+        <label>1. Fecha del evento <span class="req">*</span></label>
+        <input type="date" name="fecha" id="fecha">
+        <span class="error-msg">Este campo es requerido</span>
+      </div>
+
+      <div class="field" id="f-nombre">
+        <label>2. Nombre de quien registra <span class="req">*</span></label>
+        <input type="text" name="nombre" id="nombre" placeholder="Tu nombre completo">
+        <span class="error-msg">Este campo es requerido</span>
+      </div>
+
+      <div class="field" id="f-puesto">
+        <label>3. Puesto <span class="req">*</span></label>
+        <input type="text" name="puesto" id="puesto" placeholder="Ej: Compras, Producción, Dirección">
+        <span class="error-msg">Este campo es requerido</span>
+      </div>
+
+      <div class="field" id="f-proveedor">
+        <label>4. Proveedor involucrado <span class="req">*</span></label>
+        <input type="text" name="proveedor" id="proveedor" placeholder="Escribe el nombre del proveedor">
+        <span class="error-msg">Este campo es requerido</span>
+      </div>
+
+      <div class="field" id="f-critico">
+        <label>5. ¿Este proveedor es crítico para la operación? <span class="req">*</span></label>
+        <div class="radio-group">
+          <label class="radio-option"><input type="radio" name="critico" value="Sí"> Sí</label>
+          <label class="radio-option"><input type="radio" name="critico" value="No"> No</label>
+        </div>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+
+      <div class="field" id="f-alternativa">
+        <label>6. ¿Existía una alternativa real al proveedor? <span class="req">*</span></label>
+        <div class="radio-group">
+          <label class="radio-option"><input type="radio" name="alternativa" value="Sí"> Sí</label>
+          <label class="radio-option"><input type="radio" name="alternativa" value="Tal vez"> Tal vez</label>
+          <label class="radio-option"><input type="radio" name="alternativa" value="No"> No</label>
+        </div>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+    </div>
+
+    <!-- TIPO DE EVENTO -->
+    <div class="section">
+      <div class="section-title">⚠️ Tipo de Evento</div>
+
+      <div class="field" id="f-tipoEvento">
+        <label>7. ¿Qué tipo de evento ocurrió? <span class="req">*</span></label>
+        <select name="tipoEvento" id="tipoEvento">
+          <option value="">Selecciona...</option>
+          <option>Retraso avisado</option>
+          <option>Retraso sin aviso</option>
+          <option>No respondió</option>
+          <option>Entrega incompleta</option>
+          <option>Problema de calidad</option>
+          <option>Cambio de condiciones</option>
+          <option>Canceló</option>
+        </select>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+
+      <div class="field" id="f-haOcurrido">
+        <label>8. ¿Ha ocurrido anteriormente un evento muy similar? <span class="req">*</span></label>
+        <select name="haOcurrido" id="haOcurrido">
+          <option value="">Selecciona...</option>
+          <option>No, es la primera vez</option>
+          <option>Sí, una o dos veces</option>
+          <option>Sí, varias veces</option>
+        </select>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+
+      <div class="field" id="f-decisionesDistintas">
+        <label>9. Si ya ocurrió antes, ¿las diferentes áreas han tomado decisiones distintas? <span class="req">*</span></label>
+        <select name="decisionesDistintas" id="decisionesDistintas">
+          <option value="">Selecciona...</option>
+          <option>No aplica (primera vez)</option>
+          <option>No, siempre la misma decisión</option>
+          <option>Sí, decisiones ligeramente diferentes</option>
+          <option>Sí, decisiones muy diferentes</option>
+        </select>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+    </div>
+
+    <!-- CONTEXTO OPERATIVO -->
+    <div class="section">
+      <div class="section-title">🔥 Contexto Operativo</div>
+
+      <div class="field" id="f-inventario">
+        <label>10. ¿Había inventario disponible para cubrir el evento? <span class="req">*</span></label>
+        <select name="inventario" id="inventario">
+          <option value="">Selecciona...</option>
+          <option>Sí</option>
+          <option>Limitado</option>
+          <option>No</option>
+        </select>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+
+      <div class="field" id="f-riesgo">
+        <label>11. ¿Este evento ponía en riesgo producción inmediata? <span class="req">*</span></label>
+        <select name="riesgo" id="riesgo">
+          <option value="">Selecciona...</option>
+          <option>No</option>
+          <option>Probablemente</option>
+          <option>Sí</option>
+        </select>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+
+      <div class="field" id="f-urgencia">
+        <label>12. Nivel de urgencia del evento <span class="req">*</span></label>
+        <select name="urgencia" id="urgencia">
+          <option value="">Selecciona...</option>
+          <option>Muy bajo</option>
+          <option>Bajo</option>
+          <option>Medio</option>
+          <option>Alto</option>
+          <option>Crítico</option>
+        </select>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+
+      <div class="field" id="f-impacto">
+        <label>13. Impacto estimado si no se resuelve ahora <span class="req">*</span></label>
+        <select name="impacto" id="impacto">
+          <option value="">Selecciona...</option>
+          <option>Bajo (no afecta producción)</option>
+          <option>Medio (afecta producción)</option>
+          <option>Alto (riesgo de detener operación)</option>
+          <option>Crítico (detiene operación)</option>
+        </select>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+
+      <div class="field" id="f-decisionInmediata">
+        <label>14. ¿Este evento requería decisión inmediata? <span class="req">*</span></label>
+        <select name="decisionInmediata" id="decisionInmediata">
+          <option value="">Selecciona...</option>
+          <option>No</option>
+          <option>Sí, probablemente</option>
+          <option>Sí</option>
+        </select>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+
+      <div class="field" id="f-fechaAcordada">
+        <label>15. ¿La fecha de entrega estaba claramente acordada? <span class="req">*</span></label>
+        <select name="fechaAcordada" id="fechaAcordada">
+          <option value="">Selecciona...</option>
+          <option>No</option>
+          <option>Parcialmente</option>
+          <option>Sí</option>
+        </select>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+
+      <div class="field" id="f-acuerdoFormal">
+        <label>16. ¿Existe un acuerdo formal previamente establecido? <span class="req">*</span></label>
+        <select name="acuerdoFormal" id="acuerdoFormal">
+          <option value="">Selecciona...</option>
+          <option>No</option>
+          <option>No sé</option>
+          <option>Sí, pero de manera informal</option>
+          <option>Sí, formal previamente establecido</option>
+        </select>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+    </div>
+
+    <!-- DECISIÓN -->
+    <div class="section">
+      <div class="section-title">⚡ Decisión</div>
+
+      <div class="field" id="f-tiempoDecision">
+        <label>17. ¿Cuánto tiempo tomó decidir? <span class="req">*</span></label>
+        <select name="tiempoDecision" id="tiempoDecision">
+          <option value="">Selecciona...</option>
+          <option>En el momento (menos de 1 hr)</option>
+          <option>Menos de 12 hr</option>
+          <option>1 - 2 días</option>
+          <option>3 - 7 días</option>
+          <option>1 - 2 semanas</option>
+        </select>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+
+      <div class="field" id="f-decision">
+        <label>18. ¿Qué decisión se tomó? (puedes seleccionar más de una) <span class="req">*</span></label>
+        <div class="checkbox-group">
+          <label class="checkbox-option"><input type="checkbox" name="decision" value="Esperar sin escalar"><span class="cb-box">✓</span> Esperar sin escalar</label>
+          <label class="checkbox-option"><input type="checkbox" name="decision" value="Insistir con el proveedor"><span class="cb-box">✓</span> Insistir con el proveedor</label>
+          <label class="checkbox-option"><input type="checkbox" name="decision" value="Escalar internamente"><span class="cb-box">✓</span> Escalar internamente</label>
+          <label class="checkbox-option"><input type="checkbox" name="decision" value="Escalar con el proveedor"><span class="cb-box">✓</span> Escalar con el proveedor</label>
+          <label class="checkbox-option"><input type="checkbox" name="decision" value="Buscar proveedor alterno"><span class="cb-box">✓</span> Buscar proveedor alterno</label>
+          <label class="checkbox-option"><input type="checkbox" name="decision" value="Activar plan alternativo"><span class="cb-box">✓</span> Activar plan alternativo</label>
+          <label class="checkbox-option"><input type="checkbox" name="decision" value="Negociar nuevas condiciones"><span class="cb-box">✓</span> Negociar nuevas condiciones</label>
+          <label class="checkbox-option"><input type="checkbox" name="decision" value="Aceptar bajo condiciones actuales"><span class="cb-box">✓</span> Aceptar bajo condiciones actuales</label>
+          <label class="checkbox-option"><input type="checkbox" name="decision" value="Aceptar con ajuste interno"><span class="cb-box">✓</span> Aceptar con ajuste interno</label>
+          <label class="checkbox-option"><input type="checkbox" name="decision" value="Rechazar o devolver"><span class="cb-box">✓</span> Rechazar o devolver</label>
+          <label class="checkbox-option"><input type="checkbox" name="decision" value="Mantener decisión de eventos similares previos"><span class="cb-box">✓</span> Mantener decisión de eventos similares previos</label>
+          <label class="checkbox-option"><input type="checkbox" name="decision" value="Otros"><span class="cb-box">✓</span> Otros</label>
+        </div>
+        <span class="error-msg">Selecciona al menos una opción</span>
+      </div>
+
+      <div class="field" id="f-proveedorActivado">
+        <label>19. ¿Se activó un proveedor alternativo como parte de la respuesta? <span class="req">*</span></label>
+        <select name="proveedorActivado" id="proveedorActivado">
+          <option value="">Selecciona...</option>
+          <option>No</option>
+          <option>Sí, como medida de contingencia</option>
+          <option>Sí, lo reemplazamos temporalmente</option>
+        </select>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+    </div>
+
+    <!-- EXPOSICIÓN FUTURA -->
+    <div class="section">
+      <div class="section-title">💰 Exposición Futura</div>
+
+      <div class="field" id="f-ordenes">
+        <label>20. ¿Cuántas órdenes dependen de este proveedor en los próximos 30 días? <span class="req">*</span></label>
+        <select name="ordenes" id="ordenes">
+          <option value="">Selecciona...</option>
+          <option>Ninguna</option>
+          <option>1 - 2 órdenes</option>
+          <option>3 - 5 órdenes</option>
+          <option>Más de 5 órdenes</option>
+        </select>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+
+      <div class="field" id="f-valor">
+        <label>21. ¿Cuál es el valor aproximado de esas órdenes? <span class="req">*</span></label>
+        <span class="hint">Determina el nivel de alerta (Roja / Amarilla)</span>
+        <select name="valor" id="valor">
+          <option value="">Selecciona...</option>
+          <option>Menos de $50,000 MXN</option>
+          <option>$50,000 - $200,000 MXN</option>
+          <option>$200,000 - $500,000 MXN</option>
+          <option>Más de $500,000 MXN</option>
+        </select>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+    </div>
+
+    <!-- OBSERVACIONES -->
+    <div class="section">
+      <div class="section-title">📝 Observaciones</div>
+      <div class="field">
+        <label>22. ¿Hay alguna observación adicional?</label>
+        <textarea name="observaciones" id="observaciones" placeholder="Solo si algo importante no quedó registrado..."></textarea>
+      </div>
+    </div>
+
+  </div><!-- /form-body -->
+
+  <!-- SUBMIT -->
+  <div class="submit-area">
+    <button type="submit" class="btn-submit" id="submitBtn">
+      Registrar Evento
+    </button>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">✅</div>
+    <h2>¡Evento registrado!</h2>
+    <div class="event-id-badge" id="eventIdDisplay">EV-000</div>
+    <p>Guarda este ID. Lo necesitarás cuando<br>el evento quede resuelto.</p>
+    <button class="btn-new" onclick="resetForm()">Registrar otro evento</button>
+  </div>
+
+  </form>
+</div><!-- /card -->
+
+<script>
+  // ── CHECKBOX VISUAL TOGGLE ──────────────────────────────
+  document.querySelectorAll('.checkbox-option input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const box = cb.parentElement.querySelector('.cb-box');
+      box.textContent = cb.checked ? '✓' : '';
+    });
+  });
+
+  // ── VALIDATION ─────────────────────────────────────────
+  function validate() {
+    let ok = true;
+    const required = [
+      'fecha','nombre','puesto','proveedor',
+      'tipoEvento','haOcurrido','decisionesDistintas',
+      'inventario','riesgo','urgencia','impacto',
+      'decisionInmediata','fechaAcordada','acuerdoFormal',
+      'tiempoDecision','proveedorActivado','ordenes','valor'
+    ];
+    required.forEach(name => {
+      const field = document.getElementById('f-' + name);
+      const el    = document.getElementById(name);
+      if (!el || !el.value.trim()) {
+        field && field.classList.add('error');
+        ok = false;
+      } else {
+        field && field.classList.remove('error');
+      }
+    });
+
+    // Radio: critico
+    const criticoOk = document.querySelector('input[name="critico"]:checked');
+    document.getElementById('f-critico').classList.toggle('error', !criticoOk);
+    if (!criticoOk) ok = false;
+
+    // Radio: alternativa
+    const alternativaOk = document.querySelector('input[name="alternativa"]:checked');
+    document.getElementById('f-alternativa').classList.toggle('error', !alternativaOk);
+    if (!alternativaOk) ok = false;
+
+    // Checkboxes: decision (al menos 1)
+    const decisionOk = document.querySelectorAll('input[name="decision"]:checked').length > 0;
+    document.getElementById('f-decision').classList.toggle('error', !decisionOk);
+    if (!decisionOk) ok = false;
+
+    return ok;
+  }
+
+  // ── FORM SUBMIT ─────────────────────────────────────────
+  document.getElementById('eventoForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (!validate()) {
+      document.querySelector('.field.error')?.scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>Registrando...';
+
+    // Recopilar decisiones (checkboxes múltiples)
+    const decisiones = Array.from(
+      document.querySelectorAll('input[name="decision"]:checked')
+    ).map(cb => cb.value).join(', ');
+
+    const data = {
+      fecha:               document.getElementById('fecha').value,
+      nombre:              document.getElementById('nombre').value.trim(),
+      puesto:              document.getElementById('puesto').value.trim(),
+      proveedor:           document.getElementById('proveedor').value.trim(),
+      critico:             document.querySelector('input[name="critico"]:checked').value,
+      alternativa:         document.querySelector('input[name="alternativa"]:checked').value,
+      tipoEvento:          document.getElementById('tipoEvento').value,
+      haOcurrido:          document.getElementById('haOcurrido').value,
+      decisionesDistintas: document.getElementById('decisionesDistintas').value,
+      inventario:          document.getElementById('inventario').value,
+      riesgo:              document.getElementById('riesgo').value,
+      urgencia:            document.getElementById('urgencia').value,
+      impacto:             document.getElementById('impacto').value,
+      decisionInmediata:   document.getElementById('decisionInmediata').value,
+      fechaAcordada:       document.getElementById('fechaAcordada').value,
+      acuerdoFormal:       document.getElementById('acuerdoFormal').value,
+      tiempoDecision:      document.getElementById('tiempoDecision').value,
+      decision:            decisiones,
+      proveedorActivado:   document.getElementById('proveedorActivado').value,
+      ordenes:             document.getElementById('ordenes').value,
+      valor:               document.getElementById('valor').value,
+      observaciones:       document.getElementById('observaciones').value.trim()
+    };
+
+    const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwdquVm0WVrGMj2as1o3upyAbQX8XZqdWUfKzii7e0CfONHTPqtb-NBW-5lM4rGglG7/exec';
+    data._tipo = 'evento';
+
+    fetch(ENDPOINT, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'text/plain' }
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(result) {
+      if (result.success) {
+        document.getElementById('eventIdDisplay').textContent = result.id;
+        document.querySelector('.form-body').style.display = 'none';
+        document.querySelector('.submit-area').style.display = 'none';
+        document.getElementById('successScreen').style.display = 'block';
+      } else {
+        throw new Error(result.error || 'Error desconocido');
+      }
+    })
+    .catch(function(err) {
+      btn.disabled = false;
+      btn.innerHTML = 'Registrar Evento';
+      alert('Error al registrar: ' + err.message + '\nIntenta de nuevo.');
+    });
+  });
+
+  // ── RESET ───────────────────────────────────────────────
+  function resetForm() {
+    document.getElementById('eventoForm').reset();
+    document.querySelectorAll('.field.error').forEach(f => f.classList.remove('error'));
+    document.querySelectorAll('.cb-box').forEach(b => b.textContent = '');
+    document.querySelector('.form-body').style.display = 'block';
+    document.querySelector('.submit-area').style.display = 'block';
+    document.getElementById('successScreen').style.display = 'none';
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = false;
+    btn.innerHTML = 'Registrar Evento';
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+</script>
+</body>
+</html>

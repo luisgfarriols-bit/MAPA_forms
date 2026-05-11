@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAPA - Piloto Resultado</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0d5c3a 0%, #1b7a52 40%, #27ae72 100%);
+    padding: 24px 16px 48px;
+  }
+
+  .card {
+    max-width: 680px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 24px 64px rgba(0,0,0,0.3);
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: linear-gradient(135deg, #0d5c3a 0%, #1b7a52 60%, #27ae72 100%);
+    padding: 36px 32px;
+    text-align: center;
+    color: white;
+  }
+  .header-icon { font-size: 36px; margin-bottom: 8px; }
+  .header h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
+  .header p { margin-top: 6px; font-size: 14px; opacity: 0.8; }
+
+  /* ── AUTO-MATCH BANNER ── */
+  .automatch-banner {
+    margin: 20px 32px 0;
+    padding: 14px 16px;
+    background: #e8f5e9;
+    border-left: 4px solid #2e7d32;
+    border-radius: 0 8px 8px 0;
+    font-size: 13px;
+    color: #1b5e20;
+    line-height: 1.5;
+  }
+  .automatch-banner strong { font-weight: 700; }
+
+  /* ── FORM BODY ── */
+  .form-body { padding: 24px 32px 24px; }
+
+  /* ── SECTIONS ── */
+  .section {
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .section:last-of-type { border-bottom: none; }
+
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1b7a52;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e8f5e9;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ── FIELDS ── */
+  .field { margin-bottom: 18px; }
+  .field:last-child { margin-bottom: 0; }
+
+  label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #2c2c2c;
+    margin-bottom: 6px;
+  }
+  label .req { color: #e53935; margin-left: 2px; }
+
+  .hint {
+    font-size: 12px;
+    font-weight: 400;
+    color: #888;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  input[type="date"],
+  input[type="text"],
+  select,
+  textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    color: #2c2c2c;
+    background: white;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  input[type="date"]:focus,
+  input[type="text"]:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: #1b7a52;
+    box-shadow: 0 0 0 3px rgba(27,122,82,0.12);
+  }
+  select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23666' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+    cursor: pointer;
+  }
+  textarea {
+    resize: vertical;
+    min-height: 90px;
+    line-height: 1.5;
+  }
+  input::placeholder, textarea::placeholder { color: #bbb; }
+
+  /* ── CHECKBOX GROUP ── */
+  .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .checkbox-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 14px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #444;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .checkbox-option input[type="checkbox"] { display: none; }
+  .checkbox-option .cb-box {
+    width: 18px; height: 18px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+    font-size: 11px;
+    color: white;
+  }
+  .checkbox-option:has(input:checked) {
+    border-color: #1b7a52;
+    background: #e8f5e9;
+    color: #1b5e20;
+  }
+  .checkbox-option:has(input:checked) .cb-box {
+    background: #1b7a52;
+    border-color: #1b7a52;
+  }
+  .checkbox-option:hover { border-color: #81c784; }
+
+  /* ── ERROR STATE ── */
+  .field.error input,
+  .field.error select,
+  .field.error textarea {
+    border-color: #e53935;
+  }
+  .error-msg {
+    font-size: 12px;
+    color: #e53935;
+    margin-top: 4px;
+    display: none;
+  }
+  .field.error .error-msg { display: block; }
+
+  /* ── SUBMIT ── */
+  .submit-area { padding: 0 32px 32px; }
+
+  .btn-submit {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #0d5c3a, #1b7a52);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-submit:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(13,92,58,0.35); }
+  .btn-submit:active { transform: translateY(0); }
+  .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  .spinner {
+    display: inline-block;
+    width: 16px; height: 16px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── SUCCESS SCREEN ── */
+  .success-screen {
+    display: none;
+    padding: 48px 32px;
+    text-align: center;
+  }
+  .success-icon { font-size: 64px; margin-bottom: 16px; }
+  .success-screen h2 { font-size: 22px; font-weight: 700; color: #1b7a52; margin-bottom: 8px; }
+  .success-screen p { font-size: 14px; color: #666; line-height: 1.6; }
+  .event-id-badge {
+    display: inline-block;
+    margin: 16px auto;
+    padding: 12px 28px;
+    background: #e8f5e9;
+    border: 2px solid #1b7a52;
+    border-radius: 10px;
+    font-size: 22px;
+    font-weight: 800;
+    color: #1b5e20;
+    letter-spacing: 2px;
+  }
+  .btn-new {
+    margin-top: 20px;
+    padding: 12px 28px;
+    background: white;
+    color: #1b7a52;
+    border: 2px solid #1b7a52;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .btn-new:hover { background: #e8f5e9; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 500px) {
+    .form-body, .submit-area { padding-left: 20px; padding-right: 20px; }
+    .header { padding: 28px 20px; }
+    .automatch-banner { margin: 16px 20px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-icon">📋</div>
+    <h1>MAPA - Piloto Resultado</h1>
+    <p>Llenar cuando el evento queda resuelto</p>
+  </div>
+
+  <!-- AUTO-MATCH BANNER (reemplaza el aviso del ID) -->
+  <div class="automatch-banner">
+    ✅ <strong>Sin ID requerido.</strong> El sistema vinculará automáticamente este resultado al último evento que registraste.
+  </div>
+
+  <!-- FORM -->
+  <form id="resultadoForm" novalidate>
+  <div class="form-body">
+
+    <!-- IDENTIFICACIÓN -->
+    <div class="section">
+      <div class="section-title">🔍 Identificación</div>
+
+      <div class="field" id="f-fechaResolucion">
+        <label>1. Fecha de resolución <span class="req">*</span></label>
+        <input type="date" name="fechaResolucion" id="fechaResolucion">
+        <span class="error-msg">Este campo es requerido</span>
+      </div>
+
+      <div class="field" id="f-nombre">
+        <label>2. Nombre de quien registra <span class="req">*</span></label>
+        <input type="text" name="nombre" id="nombre" placeholder="Tu nombre completo">
+        <span class="error-msg">Este campo es requerido</span>
+      </div>
+
+      <div class="field" id="f-puesto">
+        <label>3. Puesto <span class="req">*</span></label>
+        <input type="text" name="puesto" id="puesto" placeholder="Ej: Compras, Producción, Dirección">
+        <span class="error-msg">Este campo es requerido</span>
+      </div>
+    </div>
+
+    <!-- SEGUIMIENTO A LA DECISIÓN -->
+    <div class="section">
+      <div class="section-title">🎯 Seguimiento a la Decisión</div>
+
+      <div class="field" id="f-criterioPrevio">
+        <label>4. ¿La decisión se tomó bajo un criterio previamente definido? <span class="req">*</span></label>
+        <select name="criterioPrevio" id="criterioPrevio">
+          <option value="">Selecciona...</option>
+          <option>No</option>
+          <option>Parcialmente</option>
+          <option>Sí</option>
+        </select>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+
+      <div class="field" id="f-decisionSimilar">
+        <label>5. ¿La decisión fue similar a como se ha manejado este evento antes? <span class="req">*</span></label>
+        <select name="decisionSimilar" id="decisionSimilar">
+          <option value="">Selecciona...</option>
+          <option>No, fue muy diferente</option>
+          <option>Sí, ligeramente similar</option>
+          <option>Sí, muy similar</option>
+          <option>No aplica (primera vez)</option>
+        </select>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+
+      <div class="field" id="f-resultadoAlternativo">
+        <label>6. Si se activó un proveedor alternativo, ¿cuál fue el resultado?</label>
+        <select name="resultadoAlternativo" id="resultadoAlternativo">
+          <option value="">Selecciona...</option>
+          <option>No aplica / No se activó</option>
+          <option>No funcionó bien</option>
+          <option>Funcionó parcialmente</option>
+          <option>Funcionó correctamente</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- RESULTADO DEL EVENTO -->
+    <div class="section">
+      <div class="section-title">📊 Resultado del Evento</div>
+
+      <div class="field" id="f-resultado">
+        <label>7. ¿Cuál fue el resultado del evento? (selecciona todas las que apliquen) <span class="req">*</span></label>
+        <div class="checkbox-group">
+          <label class="checkbox-option"><input type="checkbox" name="resultado" value="Se resolvió dentro del tiempo esperado"><span class="cb-box">✓</span> Se resolvió dentro del tiempo esperado</label>
+          <label class="checkbox-option"><input type="checkbox" name="resultado" value="Se resolvió fuera del tiempo esperado"><span class="cb-box">✓</span> Se resolvió fuera del tiempo esperado</label>
+          <label class="checkbox-option"><input type="checkbox" name="resultado" value="Generó costo adicional"><span class="cb-box">✓</span> Generó costo adicional</label>
+          <label class="checkbox-option"><input type="checkbox" name="resultado" value="Generó reclamos internos"><span class="cb-box">✓</span> Generó reclamos internos</label>
+          <label class="checkbox-option"><input type="checkbox" name="resultado" value="La situación empeoró"><span class="cb-box">✓</span> La situación empeoró</label>
+          <label class="checkbox-option"><input type="checkbox" name="resultado" value="Otros"><span class="cb-box">✓</span> Otros</label>
+        </div>
+        <span class="error-msg">Selecciona al menos una opción</span>
+      </div>
+
+      <div class="field" id="f-impactoEsperado">
+        <label>8. ¿El impacto fue el esperado? <span class="req">*</span></label>
+        <select name="impactoEsperado" id="impactoEsperado">
+          <option value="">Selecciona...</option>
+          <option>Sí, fue el esperado</option>
+          <option>No, fue menor</option>
+          <option>No, fue mayor</option>
+        </select>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+
+      <div class="field" id="f-costoReal">
+        <label>9. ¿Cuánto fue el costo real aproximado? <span class="req">*</span></label>
+        <select name="costoReal" id="costoReal">
+          <option value="">Selecciona...</option>
+          <option>Sin costo adicional</option>
+          <option>Menos de $15,000 MXN</option>
+          <option>$15,000 - $50,000 MXN</option>
+          <option>$50,000 - $200,000 MXN</option>
+          <option>Más de $200,000 MXN</option>
+        </select>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+
+      <div class="field" id="f-generoProblemas">
+        <label>10. ¿Esta misma decisión ya había generado problemas en eventos similares? <span class="req">*</span></label>
+        <span class="hint">Esta pregunta es sobre la decisión tomada, no sobre el proveedor</span>
+        <select name="generoProblemas" id="generoProblemas">
+          <option value="">Selecciona...</option>
+          <option>No</option>
+          <option>Sí, problemas menores</option>
+          <option>Sí, problemas graves</option>
+          <option>No aplica (primera vez)</option>
+        </select>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+    </div>
+
+    <!-- APRENDIZAJE -->
+    <div class="section">
+      <div class="section-title">💡 Aprendizaje</div>
+
+      <div class="field" id="f-eraEvitable">
+        <label>11. ¿Consideras que este evento era evitable? <span class="req">*</span></label>
+        <select name="eraEvitable" id="eraEvitable">
+          <option value="">Selecciona...</option>
+          <option>No</option>
+          <option>Tal vez</option>
+          <option>Sí</option>
+        </select>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+
+      <div class="field" id="f-loEscalarias">
+        <label>12. Si este evento volviera a ocurrir, ¿lo escalarías antes? <span class="req">*</span></label>
+        <select name="loEscalarias" id="loEscalarias">
+          <option value="">Selecciona...</option>
+          <option>No</option>
+          <option>Probablemente</option>
+          <option>Sí</option>
+        </select>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+
+      <div class="field" id="f-repetirias">
+        <label>13. Si el evento ocurriera de nuevo, ¿repetirías la misma decisión? <span class="req">*</span></label>
+        <select name="repetirias" id="repetirias">
+          <option value="">Selecciona...</option>
+          <option>No, cambiaría la decisión</option>
+          <option>Sí, con ajustes menores</option>
+          <option>Sí, repetiría igual</option>
+        </select>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+
+      <div class="field" id="f-confianzaCambio">
+        <label>14. ¿Tu confianza hacia el proveedor cambió? <span class="req">*</span></label>
+        <select name="confianzaCambio" id="confianzaCambio">
+          <option value="">Selecciona...</option>
+          <option>Sí, disminuyó</option>
+          <option>No, se mantuvo igual</option>
+          <option>Sí, aumentó</option>
+        </select>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+
+      <div class="field" id="f-planAlterno">
+        <label>15. ¿Existía un plan alterno? <span class="req">*</span></label>
+        <select name="planAlterno" id="planAlterno">
+          <option value="">Selecciona...</option>
+          <option>No</option>
+          <option>No, pero debería existir</option>
+          <option>Sí</option>
+        </select>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+
+      <div class="field" id="f-decisionRegistrada">
+        <label>16. ¿La decisión fue registrada internamente? <span class="req">*</span></label>
+        <select name="decisionRegistrada" id="decisionRegistrada">
+          <option value="">Selecciona...</option>
+          <option>No</option>
+          <option>Sí, informalmente</option>
+          <option>Sí, formalmente</option>
+        </select>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+
+      <div class="field" id="f-comoSeTomo">
+        <label>17. ¿Cómo fue tomada la decisión? <span class="req">*</span></label>
+        <select name="comoSeTomo" id="comoSeTomo">
+          <option value="">Selecciona...</option>
+          <option>En el momento, sin referencia previa</option>
+          <option>Basada en criterio previo definido</option>
+          <option>Basada en experiencias pasadas</option>
+          <option>En consenso del equipo</option>
+          <option>Escalada a dirección</option>
+        </select>
+        <span class="error-msg">Selecciona una opción</span>
+      </div>
+    </div>
+
+    <!-- OBSERVACIONES -->
+    <div class="section">
+      <div class="section-title">📝 Observaciones</div>
+      <div class="field">
+        <label>18. ¿Hay alguna observación adicional?</label>
+        <textarea name="observaciones" id="observaciones" placeholder="Aprendizajes clave, recomendaciones..."></textarea>
+      </div>
+    </div>
+
+  </div><!-- /form-body -->
+
+  <!-- SUBMIT -->
+  <div class="submit-area">
+    <button type="submit" class="btn-submit" id="submitBtn">
+      Registrar Resultado
+    </button>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">✅</div>
+    <h2>¡Resultado registrado!</h2>
+    <div class="event-id-badge" id="eventIdDisplay">EV-000</div>
+    <p>El resultado quedó vinculado al evento.<br>MAPA actualizó el Score automáticamente.</p>
+    <button class="btn-new" onclick="resetForm()">Registrar otro resultado</button>
+  </div>
+
+  </form>
+</div><!-- /card -->
+
+<script>
+  // ── CHECKBOX VISUAL TOGGLE ──────────────────────────────
+  document.querySelectorAll('.checkbox-option input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const box = cb.parentElement.querySelector('.cb-box');
+      box.textContent = cb.checked ? '✓' : '';
+    });
+  });
+
+  // ── VALIDATION ─────────────────────────────────────────
+  function validate() {
+    let ok = true;
+    const required = [
+      'fechaResolucion','nombre','puesto',
+      'criterioPrevio','decisionSimilar',
+      'impactoEsperado','costoReal','generoProblemas',
+      'eraEvitable','loEscalarias','repetirias',
+      'confianzaCambio','planAlterno','decisionRegistrada','comoSeTomo'
+    ];
+
+    required.forEach(name => {
+      const field = document.getElementById('f-' + name);
+      const el    = document.getElementById(name);
+      if (!el || !el.value.trim()) {
+        field && field.classList.add('error');
+        ok = false;
+      } else {
+        field && field.classList.remove('error');
+      }
+    });
+
+    // Checkboxes: resultado (al menos 1)
+    const resultadoOk = document.querySelectorAll('input[name="resultado"]:checked').length > 0;
+    document.getElementById('f-resultado').classList.toggle('error', !resultadoOk);
+    if (!resultadoOk) ok = false;
+
+    return ok;
+  }
+
+  // ── FORM SUBMIT ─────────────────────────────────────────
+  document.getElementById('resultadoForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (!validate()) {
+      document.querySelector('.field.error')?.scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>Registrando...';
+
+    // Recopilar resultados (checkboxes múltiples)
+    const resultados = Array.from(
+      document.querySelectorAll('input[name="resultado"]:checked')
+    ).map(cb => cb.value).join(', ');
+
+    const data = {
+      fechaResolucion:    document.getElementById('fechaResolucion').value,
+      nombre:             document.getElementById('nombre').value.trim(),
+      puesto:             document.getElementById('puesto').value.trim(),
+      criterioPrevio:     document.getElementById('criterioPrevio').value,
+      decisionSimilar:    document.getElementById('decisionSimilar').value,
+      resultadoAlternativo: document.getElementById('resultadoAlternativo').value,
+      resultado:          resultados,
+      impactoEsperado:    document.getElementById('impactoEsperado').value,
+      costoReal:          document.getElementById('costoReal').value,
+      generoProblemas:    document.getElementById('generoProblemas').value,
+      eraEvitable:        document.getElementById('eraEvitable').value,
+      loEscalarias:       document.getElementById('loEscalarias').value,
+      repetirias:         document.getElementById('repetirias').value,
+      confianzaCambio:    document.getElementById('confianzaCambio').value,
+      planAlterno:        document.getElementById('planAlterno').value,
+      decisionRegistrada: document.getElementById('decisionRegistrada').value,
+      comoSeTomo:         document.getElementById('comoSeTomo').value,
+      observaciones:      document.getElementById('observaciones').value.trim()
+    };
+
+    const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwdquVm0WVrGMj2as1o3upyAbQX8XZqdWUfKzii7e0CfONHTPqtb-NBW-5lM4rGglG7/exec';
+    data._tipo = 'resultado';
+
+    fetch(ENDPOINT, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'text/plain' }
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(result) {
+      if (result.success) {
+        document.getElementById('eventIdDisplay').textContent = result.id;
+        document.querySelector('.form-body').style.display = 'none';
+        document.querySelector('.submit-area').style.display = 'none';
+        document.querySelector('.automatch-banner').style.display = 'none';
+        document.getElementById('successScreen').style.display = 'block';
+      } else {
+        throw new Error(result.error || 'Error desconocido');
+      }
+    })
+    .catch(function(err) {
+      btn.disabled = false;
+      btn.innerHTML = 'Registrar Resultado';
+      alert('Error al registrar: ' + err.message + '\nIntenta de nuevo.');
+    });
+  });
+
+  // ── RESET ───────────────────────────────────────────────
+  function resetForm() {
+    document.getElementById('resultadoForm').reset();
+    document.querySelectorAll('.field.error').forEach(f => f.classList.remove('error'));
+    document.querySelectorAll('.cb-box').forEach(b => b.textContent = '');
+    document.querySelector('.form-body').style.display = 'block';
+    document.querySelector('.submit-area').style.display = 'block';
+    document.querySelector('.automatch-banner').style.display = 'block';
+    document.getElementById('successScreen').style.display = 'none';
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = false;
+    btn.innerHTML = 'Registrar Resultado';
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
+</script>
+</body>
+</html>
