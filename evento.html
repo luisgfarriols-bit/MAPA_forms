@@ -672,23 +672,44 @@
     const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwdquVm0WVrGMj2as1o3upyAbQX8XZqdWUfKzii7e0CfONHTPqtb-NBW-5lM4rGglG7/exec';
     data._tipo = 'evento';
 
-    fetch(ENDPOINT + '?action=submit&data=' + encodeURIComponent(JSON.stringify(data)))
-    .then(function(r) { return r.json(); })
-    .then(function(result) {
+    var cbName = '_mapa_' + Date.now();
+    var script = document.createElement('script');
+
+    window[cbName] = function(result) {
+      document.head.removeChild(script);
+      delete window[cbName];
       if (result.success) {
         document.getElementById('eventIdDisplay').textContent = result.id;
         document.querySelector('.form-body').style.display = 'none';
         document.querySelector('.submit-area').style.display = 'none';
         document.getElementById('successScreen').style.display = 'block';
       } else {
-        throw new Error(result.error || 'Error desconocido');
+        btn.disabled = false;
+        btn.innerHTML = 'Registrar Evento';
+        alert('Error: ' + (result.error || 'Error desconocido') + '\nIntenta de nuevo.');
       }
-    })
-    .catch(function(err) {
+    };
+
+    script.onerror = function() {
+      document.head.removeChild(script);
+      delete window[cbName];
       btn.disabled = false;
       btn.innerHTML = 'Registrar Evento';
-      alert('Error al registrar: ' + err.message + '\nIntenta de nuevo.');
-    });
+      alert('Error de conexión. Verifica tu internet e intenta de nuevo.');
+    };
+
+    setTimeout(function() {
+      if (window[cbName]) {
+        document.head.removeChild(script);
+        delete window[cbName];
+        btn.disabled = false;
+        btn.innerHTML = 'Registrar Evento';
+        alert('Tiempo de espera agotado. Intenta de nuevo.');
+      }
+    }, 20000);
+
+    script.src = ENDPOINT + '?action=submit&cb=' + cbName + '&data=' + encodeURIComponent(JSON.stringify(data));
+    document.head.appendChild(script);
   });
 
   // ── RESET ───────────────────────────────────────────────
