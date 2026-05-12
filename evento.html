@@ -672,11 +672,7 @@
     const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwdquVm0WVrGMj2as1o3upyAbQX8XZqdWUfKzii7e0CfONHTPqtb-NBW-5lM4rGglG7/exec';
     data._tipo = 'evento';
 
-    fetch(ENDPOINT, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: { 'Content-Type': 'text/plain' }
-    })
+    fetch(ENDPOINT + '?action=submit&data=' + encodeURIComponent(JSON.stringify(data)))
     .then(function(r) { return r.json(); })
     .then(function(result) {
       if (result.success) {
