@@ -25,7 +25,6 @@
     box-shadow: 0 24px 64px rgba(0,0,0,0.3);
   }
 
-  /* ── HEADER ── */
   .header {
     background: linear-gradient(135deg, #1a237e 0%, #283593 60%, #3949ab 100%);
     padding: 36px 32px;
@@ -36,10 +35,8 @@
   .header h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
   .header p { margin-top: 6px; font-size: 14px; opacity: 0.8; }
 
-  /* ── FORM BODY ── */
   .form-body { padding: 32px 32px 24px; }
 
-  /* ── SECTIONS ── */
   .section {
     margin-bottom: 28px;
     padding-bottom: 28px;
@@ -59,7 +56,6 @@
     gap: 8px;
   }
 
-  /* ── FIELDS ── */
   .field { margin-bottom: 18px; }
   .field:last-child { margin-bottom: 0; }
 
@@ -118,7 +114,6 @@
   }
   input::placeholder, textarea::placeholder { color: #bbb; }
 
-  /* ── RADIO GROUP ── */
   .radio-group {
     display: flex;
     gap: 10px;
@@ -147,7 +142,6 @@
   }
   .radio-option:hover { border-color: #9fa8da; }
 
-  /* ── CHECKBOX GROUP ── */
   .checkbox-group {
     display: flex;
     flex-direction: column;
@@ -188,7 +182,26 @@
   }
   .checkbox-option:hover { border-color: #9fa8da; }
 
-  /* ── ERROR STATE ── */
+  /* ── OTROS INPUT ── */
+  .otros-input {
+    display: none;
+    margin-top: 6px;
+    padding: 9px 14px;
+    width: 100%;
+    border: 1.5px dashed #9fa8da;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    color: #2c2c2c;
+    background: #f8f9ff;
+  }
+  .otros-input:focus {
+    outline: none;
+    border-color: #3949ab;
+    border-style: solid;
+    box-shadow: 0 0 0 3px rgba(57,73,171,0.12);
+  }
+
   .field.error input,
   .field.error select,
   .field.error textarea {
@@ -202,7 +215,6 @@
   }
   .field.error .error-msg { display: block; }
 
-  /* ── SUBMIT ── */
   .submit-area { padding: 0 32px 32px; }
 
   .btn-submit {
@@ -236,7 +248,6 @@
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ── SUCCESS SCREEN ── */
   .success-screen {
     display: none;
     padding: 48px 32px;
@@ -272,7 +283,6 @@
   }
   .btn-new:hover { background: #e8eaf6; }
 
-  /* ── RESPONSIVE ── */
   @media (max-width: 500px) {
     .form-body, .submit-area { padding-left: 20px; padding-right: 20px; }
     .header { padding: 28px 20px; }
@@ -283,18 +293,15 @@
 <body>
 
 <div class="card">
-  <!-- HEADER -->
   <div class="header">
     <div class="header-icon">📋</div>
     <h1>MAPA - Piloto Evento</h1>
     <p>Llenar al momento del evento — máximo 12 horas después</p>
   </div>
 
-  <!-- FORM -->
   <form id="eventoForm" novalidate>
   <div class="form-body">
 
-    <!-- IDENTIFICACIÓN -->
     <div class="section">
       <div class="section-title">📋 Identificación</div>
 
@@ -342,7 +349,6 @@
       </div>
     </div>
 
-    <!-- TIPO DE EVENTO -->
     <div class="section">
       <div class="section-title">⚠️ Tipo de Evento</div>
 
@@ -385,7 +391,6 @@
       </div>
     </div>
 
-    <!-- CONTEXTO OPERATIVO -->
     <div class="section">
       <div class="section-title">🔥 Contexto Operativo</div>
 
@@ -471,7 +476,6 @@
       </div>
     </div>
 
-    <!-- DECISIÓN -->
     <div class="section">
       <div class="section-title">⚡ Decisión</div>
 
@@ -502,7 +506,9 @@
           <label class="checkbox-option"><input type="checkbox" name="decision" value="Aceptar con ajuste interno"><span class="cb-box">✓</span> Aceptar con ajuste interno</label>
           <label class="checkbox-option"><input type="checkbox" name="decision" value="Rechazar o devolver"><span class="cb-box">✓</span> Rechazar o devolver</label>
           <label class="checkbox-option"><input type="checkbox" name="decision" value="Mantener decisión de eventos similares previos"><span class="cb-box">✓</span> Mantener decisión de eventos similares previos</label>
-          <label class="checkbox-option"><input type="checkbox" name="decision" value="Otros"><span class="cb-box">✓</span> Otros</label>
+          <label class="checkbox-option"><input type="checkbox" name="decision" value="Otros" id="cb-decision-otros"><span class="cb-box">✓</span> Otros</label>
+          <!-- CAMPO OTROS: aparece al seleccionar "Otros" -->
+          <input type="text" id="otros-decision-texto" class="otros-input" placeholder="Especifica la decisión tomada...">
         </div>
         <span class="error-msg">Selecciona al menos una opción</span>
       </div>
@@ -519,7 +525,6 @@
       </div>
     </div>
 
-    <!-- EXPOSICIÓN FUTURA -->
     <div class="section">
       <div class="section-title">💰 Exposición Futura</div>
 
@@ -549,7 +554,6 @@
       </div>
     </div>
 
-    <!-- OBSERVACIONES -->
     <div class="section">
       <div class="section-title">📝 Observaciones</div>
       <div class="field">
@@ -558,16 +562,14 @@
       </div>
     </div>
 
-  </div><!-- /form-body -->
+  </div>
 
-  <!-- SUBMIT -->
   <div class="submit-area">
     <button type="submit" class="btn-submit" id="submitBtn">
       Registrar Evento
     </button>
   </div>
 
-  <!-- SUCCESS -->
   <div class="success-screen" id="successScreen">
     <div class="success-icon">✅</div>
     <h2>¡Evento registrado!</h2>
@@ -577,7 +579,7 @@
   </div>
 
   </form>
-</div><!-- /card -->
+</div>
 
 <script>
   // ── CHECKBOX VISUAL TOGGLE ──────────────────────────────
@@ -586,6 +588,13 @@
       const box = cb.parentElement.querySelector('.cb-box');
       box.textContent = cb.checked ? '✓' : '';
     });
+  });
+
+  // ── MOSTRAR/OCULTAR CAMPO "OTROS" EN DECISIÓN ──────────
+  document.getElementById('cb-decision-otros').addEventListener('change', function() {
+    const input = document.getElementById('otros-decision-texto');
+    input.style.display = this.checked ? 'block' : 'none';
+    if (!this.checked) input.value = '';
   });
 
   // ── VALIDATION ─────────────────────────────────────────
@@ -609,17 +618,14 @@
       }
     });
 
-    // Radio: critico
     const criticoOk = document.querySelector('input[name="critico"]:checked');
     document.getElementById('f-critico').classList.toggle('error', !criticoOk);
     if (!criticoOk) ok = false;
 
-    // Radio: alternativa
     const alternativaOk = document.querySelector('input[name="alternativa"]:checked');
     document.getElementById('f-alternativa').classList.toggle('error', !alternativaOk);
     if (!alternativaOk) ok = false;
 
-    // Checkboxes: decision (al menos 1)
     const decisionOk = document.querySelectorAll('input[name="decision"]:checked').length > 0;
     document.getElementById('f-decision').classList.toggle('error', !decisionOk);
     if (!decisionOk) ok = false;
@@ -639,10 +645,11 @@
     btn.disabled = true;
     btn.innerHTML = '<span class="spinner"></span>Registrando...';
 
-    // Recopilar decisiones (checkboxes múltiples)
+    // Recopilar decisiones — si "Otros" está marcado y tiene texto, se concatena
+    const otrosDecisionTexto = document.getElementById('otros-decision-texto').value.trim();
     const decisiones = Array.from(
       document.querySelectorAll('input[name="decision"]:checked')
-    ).map(cb => cb.value).join(', ');
+    ).map(cb => (cb.value === 'Otros' && otrosDecisionTexto) ? 'Otros: ' + otrosDecisionTexto : cb.value).join(', ');
 
     const data = {
       fecha:               document.getElementById('fecha').value,
@@ -669,47 +676,28 @@
       observaciones:       document.getElementById('observaciones').value.trim()
     };
 
-    const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwiXk2SUzy8wvJlT0EKn3ssNTWCIL9DGUCT4Tgu9lpjLn3H-pv_gZM0qWyYHOV1WrGw/exec';
     data._tipo = 'evento';
 
-    var cbName = '_mapa_' + Date.now();
-    var script = document.createElement('script');
-
-    window[cbName] = function(result) {
-      document.head.removeChild(script);
-      delete window[cbName];
+    fetch(window.location.href.split('?')[0], {
+      method: 'POST',
+      body: JSON.stringify(data)
+    })
+    .then(r => r.json())
+    .then(function(result) {
       if (result.success) {
         document.getElementById('eventIdDisplay').textContent = result.id;
         document.querySelector('.form-body').style.display = 'none';
         document.querySelector('.submit-area').style.display = 'none';
         document.getElementById('successScreen').style.display = 'block';
       } else {
-        btn.disabled = false;
-        btn.innerHTML = 'Registrar Evento';
-        alert('Error: ' + (result.error || 'Error desconocido') + '\nIntenta de nuevo.');
+        throw new Error(result.error);
       }
-    };
-
-    script.onerror = function() {
-      document.head.removeChild(script);
-      delete window[cbName];
+    })
+    .catch(function(err) {
       btn.disabled = false;
       btn.innerHTML = 'Registrar Evento';
-      alert('Error de conexión. Verifica tu internet e intenta de nuevo.');
-    };
-
-    setTimeout(function() {
-      if (window[cbName]) {
-        document.head.removeChild(script);
-        delete window[cbName];
-        btn.disabled = false;
-        btn.innerHTML = 'Registrar Evento';
-        alert('Tiempo de espera agotado. Intenta de nuevo.');
-      }
-    }, 20000);
-
-    script.src = ENDPOINT + '?action=submit&cb=' + cbName + '&data=' + encodeURIComponent(JSON.stringify(data));
-    document.head.appendChild(script);
+      alert('Error: ' + err.message + '\nIntenta de nuevo.');
+    });
   });
 
   // ── RESET ───────────────────────────────────────────────
@@ -717,6 +705,10 @@
     document.getElementById('eventoForm').reset();
     document.querySelectorAll('.field.error').forEach(f => f.classList.remove('error'));
     document.querySelectorAll('.cb-box').forEach(b => b.textContent = '');
+    // Limpiar y ocultar campo Otros
+    const otrosInput = document.getElementById('otros-decision-texto');
+    otrosInput.value = '';
+    otrosInput.style.display = 'none';
     document.querySelector('.form-body').style.display = 'block';
     document.querySelector('.submit-area').style.display = 'block';
     document.getElementById('successScreen').style.display = 'none';
