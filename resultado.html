@@ -25,7 +25,6 @@
     box-shadow: 0 24px 64px rgba(0,0,0,0.3);
   }
 
-  /* ── HEADER ── */
   .header {
     background: linear-gradient(135deg, #0d5c3a 0%, #1b7a52 60%, #27ae72 100%);
     padding: 36px 32px;
@@ -36,7 +35,6 @@
   .header h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
   .header p { margin-top: 6px; font-size: 14px; opacity: 0.8; }
 
-  /* ── AUTO-MATCH BANNER ── */
   .automatch-banner {
     margin: 20px 32px 0;
     padding: 14px 16px;
@@ -49,10 +47,8 @@
   }
   .automatch-banner strong { font-weight: 700; }
 
-  /* ── FORM BODY ── */
   .form-body { padding: 24px 32px 24px; }
 
-  /* ── SECTIONS ── */
   .section {
     margin-bottom: 28px;
     padding-bottom: 28px;
@@ -72,7 +68,6 @@
     gap: 8px;
   }
 
-  /* ── FIELDS ── */
   .field { margin-bottom: 18px; }
   .field:last-child { margin-bottom: 0; }
 
@@ -131,7 +126,6 @@
   }
   input::placeholder, textarea::placeholder { color: #bbb; }
 
-  /* ── CHECKBOX GROUP ── */
   .checkbox-group {
     display: flex;
     flex-direction: column;
@@ -172,7 +166,26 @@
   }
   .checkbox-option:hover { border-color: #81c784; }
 
-  /* ── ERROR STATE ── */
+  /* ── OTROS INPUT ── */
+  .otros-input {
+    display: none;
+    margin-top: 6px;
+    padding: 9px 14px;
+    width: 100%;
+    border: 1.5px dashed #81c784;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    color: #2c2c2c;
+    background: #f1faf4;
+  }
+  .otros-input:focus {
+    outline: none;
+    border-color: #1b7a52;
+    border-style: solid;
+    box-shadow: 0 0 0 3px rgba(27,122,82,0.12);
+  }
+
   .field.error input,
   .field.error select,
   .field.error textarea {
@@ -186,7 +199,6 @@
   }
   .field.error .error-msg { display: block; }
 
-  /* ── SUBMIT ── */
   .submit-area { padding: 0 32px 32px; }
 
   .btn-submit {
@@ -219,7 +231,6 @@
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ── SUCCESS SCREEN ── */
   .success-screen {
     display: none;
     padding: 48px 32px;
@@ -255,7 +266,6 @@
   }
   .btn-new:hover { background: #e8f5e9; }
 
-  /* ── RESPONSIVE ── */
   @media (max-width: 500px) {
     .form-body, .submit-area { padding-left: 20px; padding-right: 20px; }
     .header { padding: 28px 20px; }
@@ -266,23 +276,19 @@
 <body>
 
 <div class="card">
-  <!-- HEADER -->
   <div class="header">
     <div class="header-icon">📋</div>
     <h1>MAPA - Piloto Resultado</h1>
     <p>Llenar cuando el evento queda resuelto</p>
   </div>
 
-  <!-- AUTO-MATCH BANNER (reemplaza el aviso del ID) -->
   <div class="automatch-banner">
     ✅ <strong>Sin ID requerido.</strong> El sistema vinculará automáticamente este resultado al último evento que registraste.
   </div>
 
-  <!-- FORM -->
   <form id="resultadoForm" novalidate>
   <div class="form-body">
 
-    <!-- IDENTIFICACIÓN -->
     <div class="section">
       <div class="section-title">🔍 Identificación</div>
 
@@ -305,7 +311,6 @@
       </div>
     </div>
 
-    <!-- SEGUIMIENTO A LA DECISIÓN -->
     <div class="section">
       <div class="section-title">🎯 Seguimiento a la Decisión</div>
 
@@ -344,7 +349,6 @@
       </div>
     </div>
 
-    <!-- RESULTADO DEL EVENTO -->
     <div class="section">
       <div class="section-title">📊 Resultado del Evento</div>
 
@@ -356,7 +360,9 @@
           <label class="checkbox-option"><input type="checkbox" name="resultado" value="Generó costo adicional"><span class="cb-box">✓</span> Generó costo adicional</label>
           <label class="checkbox-option"><input type="checkbox" name="resultado" value="Generó reclamos internos"><span class="cb-box">✓</span> Generó reclamos internos</label>
           <label class="checkbox-option"><input type="checkbox" name="resultado" value="La situación empeoró"><span class="cb-box">✓</span> La situación empeoró</label>
-          <label class="checkbox-option"><input type="checkbox" name="resultado" value="Otros"><span class="cb-box">✓</span> Otros</label>
+          <label class="checkbox-option"><input type="checkbox" name="resultado" value="Otros" id="cb-resultado-otros"><span class="cb-box">✓</span> Otros</label>
+          <!-- CAMPO OTROS: aparece al seleccionar "Otros" -->
+          <input type="text" id="otros-resultado-texto" class="otros-input" placeholder="Especifica el resultado...">
         </div>
         <span class="error-msg">Selecciona al menos una opción</span>
       </div>
@@ -399,7 +405,6 @@
       </div>
     </div>
 
-    <!-- APRENDIZAJE -->
     <div class="section">
       <div class="section-title">💡 Aprendizaje</div>
 
@@ -483,7 +488,6 @@
       </div>
     </div>
 
-    <!-- OBSERVACIONES -->
     <div class="section">
       <div class="section-title">📝 Observaciones</div>
       <div class="field">
@@ -492,16 +496,14 @@
       </div>
     </div>
 
-  </div><!-- /form-body -->
+  </div>
 
-  <!-- SUBMIT -->
   <div class="submit-area">
     <button type="submit" class="btn-submit" id="submitBtn">
       Registrar Resultado
     </button>
   </div>
 
-  <!-- SUCCESS -->
   <div class="success-screen" id="successScreen">
     <div class="success-icon">✅</div>
     <h2>¡Resultado registrado!</h2>
@@ -511,7 +513,7 @@
   </div>
 
   </form>
-</div><!-- /card -->
+</div>
 
 <script>
   // ── CHECKBOX VISUAL TOGGLE ──────────────────────────────
@@ -520,6 +522,13 @@
       const box = cb.parentElement.querySelector('.cb-box');
       box.textContent = cb.checked ? '✓' : '';
     });
+  });
+
+  // ── MOSTRAR/OCULTAR CAMPO "OTROS" EN RESULTADO ─────────
+  document.getElementById('cb-resultado-otros').addEventListener('change', function() {
+    const input = document.getElementById('otros-resultado-texto');
+    input.style.display = this.checked ? 'block' : 'none';
+    if (!this.checked) input.value = '';
   });
 
   // ── VALIDATION ─────────────────────────────────────────
@@ -544,7 +553,6 @@
       }
     });
 
-    // Checkboxes: resultado (al menos 1)
     const resultadoOk = document.querySelectorAll('input[name="resultado"]:checked').length > 0;
     document.getElementById('f-resultado').classList.toggle('error', !resultadoOk);
     if (!resultadoOk) ok = false;
@@ -564,10 +572,11 @@
     btn.disabled = true;
     btn.innerHTML = '<span class="spinner"></span>Registrando...';
 
-    // Recopilar resultados (checkboxes múltiples)
+    // Recopilar resultados — si "Otros" está marcado y tiene texto, se concatena
+    const otrosResultadoTexto = document.getElementById('otros-resultado-texto').value.trim();
     const resultados = Array.from(
       document.querySelectorAll('input[name="resultado"]:checked')
-    ).map(cb => cb.value).join(', ');
+    ).map(cb => (cb.value === 'Otros' && otrosResultadoTexto) ? 'Otros: ' + otrosResultadoTexto : cb.value).join(', ');
 
     const data = {
       fechaResolucion:    document.getElementById('fechaResolucion').value,
@@ -590,15 +599,14 @@
       observaciones:      document.getElementById('observaciones').value.trim()
     };
 
-    const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwiXk2SUzy8wvJlT0EKn3ssNTWCIL9DGUCT4Tgu9lpjLn3H-pv_gZM0qWyYHOV1WrGw/exec';
     data._tipo = 'resultado';
 
-    var cbName = '_mapa_' + Date.now();
-    var script = document.createElement('script');
-
-    window[cbName] = function(result) {
-      document.head.removeChild(script);
-      delete window[cbName];
+    fetch(window.location.href.split('?')[0], {
+      method: 'POST',
+      body: JSON.stringify(data)
+    })
+    .then(r => r.json())
+    .then(function(result) {
       if (result.success) {
         document.getElementById('eventIdDisplay').textContent = result.id;
         document.querySelector('.form-body').style.display = 'none';
@@ -606,32 +614,14 @@
         document.querySelector('.automatch-banner').style.display = 'none';
         document.getElementById('successScreen').style.display = 'block';
       } else {
-        btn.disabled = false;
-        btn.innerHTML = 'Registrar Resultado';
-        alert('Error: ' + (result.error || 'Error desconocido') + '\nIntenta de nuevo.');
+        throw new Error(result.error);
       }
-    };
-
-    script.onerror = function() {
-      document.head.removeChild(script);
-      delete window[cbName];
+    })
+    .catch(function(err) {
       btn.disabled = false;
       btn.innerHTML = 'Registrar Resultado';
-      alert('Error de conexión. Verifica tu internet e intenta de nuevo.');
-    };
-
-    setTimeout(function() {
-      if (window[cbName]) {
-        document.head.removeChild(script);
-        delete window[cbName];
-        btn.disabled = false;
-        btn.innerHTML = 'Registrar Resultado';
-        alert('Tiempo de espera agotado. Intenta de nuevo.');
-      }
-    }, 20000);
-
-    script.src = ENDPOINT + '?action=submit&cb=' + cbName + '&data=' + encodeURIComponent(JSON.stringify(data));
-    document.head.appendChild(script);
+      alert('Error: ' + err.message + '\nIntenta de nuevo.');
+    });
   });
 
   // ── RESET ───────────────────────────────────────────────
@@ -639,6 +629,10 @@
     document.getElementById('resultadoForm').reset();
     document.querySelectorAll('.field.error').forEach(f => f.classList.remove('error'));
     document.querySelectorAll('.cb-box').forEach(b => b.textContent = '');
+    // Limpiar y ocultar campo Otros
+    const otrosInput = document.getElementById('otros-resultado-texto');
+    otrosInput.value = '';
+    otrosInput.style.display = 'none';
     document.querySelector('.form-body').style.display = 'block';
     document.querySelector('.submit-area').style.display = 'block';
     document.querySelector('.automatch-banner').style.display = 'block';
