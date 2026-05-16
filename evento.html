@@ -182,7 +182,6 @@
   }
   .checkbox-option:hover { border-color: #9fa8da; }
 
-  /* ── OTROS INPUT ── */
   .otros-input {
     display: none;
     margin-top: 6px;
@@ -507,7 +506,6 @@
           <label class="checkbox-option"><input type="checkbox" name="decision" value="Rechazar o devolver"><span class="cb-box">✓</span> Rechazar o devolver</label>
           <label class="checkbox-option"><input type="checkbox" name="decision" value="Mantener decisión de eventos similares previos"><span class="cb-box">✓</span> Mantener decisión de eventos similares previos</label>
           <label class="checkbox-option"><input type="checkbox" name="decision" value="Otros" id="cb-decision-otros"><span class="cb-box">✓</span> Otros</label>
-          <!-- CAMPO OTROS: aparece al seleccionar "Otros" -->
           <input type="text" id="otros-decision-texto" class="otros-input" placeholder="Especifica la decisión tomada...">
         </div>
         <span class="error-msg">Selecciona al menos una opción</span>
@@ -582,6 +580,44 @@
 </div>
 
 <script>
+  // ── URL DEL WEB APP ─────────────────────────────────────
+  // Misma URL para evento y resultado — cópiala de:
+  // Apps Script → Implementar → Administrar implementaciones → copiar URL
+  const WEBAPP_URL = 'https://script.google.com/macros/s/REEMPLAZA_CON_TU_URL/exec';
+
+  // ── JSONP HELPER ────────────────────────────────────────
+  // Apps Script no acepta fetch POST desde dominios externos.
+  // JSONP via GET es el único método que funciona sin servidor propio.
+  function _callWebApp(data, onSuccess, onError) {
+    const cbName = 'mapa_cb_' + Date.now();
+    const script = document.createElement('script');
+    const timeout = setTimeout(function() {
+      delete window[cbName];
+      if (document.body.contains(script)) document.body.removeChild(script);
+      onError && onError();
+    }, 15000);
+
+    window[cbName] = function(result) {
+      clearTimeout(timeout);
+      delete window[cbName];
+      if (document.body.contains(script)) document.body.removeChild(script);
+      onSuccess(result);
+    };
+
+    script.onerror = function() {
+      clearTimeout(timeout);
+      delete window[cbName];
+      onError && onError();
+    };
+
+    script.src = WEBAPP_URL +
+      '?action=submit' +
+      '&data=' + encodeURIComponent(JSON.stringify(data)) +
+      '&cb=' + cbName;
+
+    document.body.appendChild(script);
+  }
+
   // ── CHECKBOX VISUAL TOGGLE ──────────────────────────────
   document.querySelectorAll('.checkbox-option input[type="checkbox"]').forEach(cb => {
     cb.addEventListener('change', () => {
@@ -594,7 +630,8 @@
   document.getElementById('cb-decision-otros').addEventListener('change', function() {
     const input = document.getElementById('otros-decision-texto');
     input.style.display = this.checked ? 'block' : 'none';
-    if (!this.checked) input.value = '';
+    if (this.checked) input.focus();
+    else input.value = '';
   });
 
   // ── VALIDATION ─────────────────────────────────────────
@@ -645,7 +682,6 @@
     btn.disabled = true;
     btn.innerHTML = '<span class="spinner"></span>Registrando...';
 
-    // Recopilar decisiones — si "Otros" está marcado y tiene texto, se concatena
     const otrosDecisionTexto = document.getElementById('otros-decision-texto').value.trim();
     const decisiones = Array.from(
       document.querySelectorAll('input[name="decision"]:checked')
@@ -678,25 +714,21 @@
 
     data._tipo = 'evento';
 
-    fetch(window.location.href.split('?')[0], {
-      method: 'POST',
-      body: JSON.stringify(data)
-    })
-    .then(r => r.json())
-    .then(function(result) {
+    _callWebApp(data, function(result) {
       if (result.success) {
         document.getElementById('eventIdDisplay').textContent = result.id;
         document.querySelector('.form-body').style.display = 'none';
         document.querySelector('.submit-area').style.display = 'none';
         document.getElementById('successScreen').style.display = 'block';
       } else {
-        throw new Error(result.error);
+        btn.disabled = false;
+        btn.innerHTML = 'Registrar Evento';
+        alert('Error: ' + (result.error || 'Desconocido') + '\nIntenta de nuevo.');
       }
-    })
-    .catch(function(err) {
+    }, function() {
       btn.disabled = false;
       btn.innerHTML = 'Registrar Evento';
-      alert('Error: ' + err.message + '\nIntenta de nuevo.');
+      alert('Error de conexión. Verifica tu internet e intenta de nuevo.');
     });
   });
 
@@ -705,7 +737,6 @@
     document.getElementById('eventoForm').reset();
     document.querySelectorAll('.field.error').forEach(f => f.classList.remove('error'));
     document.querySelectorAll('.cb-box').forEach(b => b.textContent = '');
-    // Limpiar y ocultar campo Otros
     const otrosInput = document.getElementById('otros-decision-texto');
     otrosInput.value = '';
     otrosInput.style.display = 'none';
