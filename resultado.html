@@ -166,6 +166,7 @@
   }
   .checkbox-option:hover { border-color: #81c784; }
 
+  /* ── OTROS INPUT ── */
   .otros-input {
     display: none;
     margin-top: 6px;
@@ -230,20 +231,18 @@
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* ── SUCCESS SCREEN ─────────────────────────────────────── */
   .success-screen {
     display: none;
-    padding: 40px 32px 48px;
+    padding: 48px 32px;
     text-align: center;
   }
-  .success-icon { font-size: 56px; margin-bottom: 12px; }
-  .success-screen h2 { font-size: 22px; font-weight: 700; color: #1b7a52; margin-bottom: 6px; }
-  .success-tagline { font-size: 14px; color: #888; margin-bottom: 16px; }
-
+  .success-icon { font-size: 64px; margin-bottom: 16px; }
+  .success-screen h2 { font-size: 22px; font-weight: 700; color: #1b7a52; margin-bottom: 8px; }
+  .success-screen p { font-size: 14px; color: #666; line-height: 1.6; }
   .event-id-badge {
     display: inline-block;
-    margin: 0 auto 20px;
-    padding: 10px 28px;
+    margin: 16px auto;
+    padding: 12px 28px;
     background: #e8f5e9;
     border: 2px solid #1b7a52;
     border-radius: 10px;
@@ -252,119 +251,8 @@
     color: #1b5e20;
     letter-spacing: 2px;
   }
-
-  /* ── PROTOCOLO ──────────────────────────────────────────── */
-  .protocolo-wrapper {
-    display: none;
-    margin: 24px 0 0;
-    text-align: left;
-    animation: fadeSlideUp 0.4s ease both;
-  }
-  @keyframes fadeSlideUp {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  .protocolo-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 14px;
-  }
-  .protocolo-eyebrow {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: #1b7a52;
-    opacity: 0.7;
-    margin-bottom: 2px;
-  }
-  .protocolo-titulo {
-    font-size: 16px;
-    font-weight: 700;
-    color: #1b5e20;
-  }
-  .protocolo-icon-wrap {
-    width: 44px; height: 44px;
-    background: linear-gradient(135deg, #0d5c3a, #1b7a52);
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 22px;
-    flex-shrink: 0;
-  }
-
-  .protocolo-divider {
-    height: 1px;
-    background: linear-gradient(to right, #1b7a52, #e8f5e9);
-    margin-bottom: 16px;
-    border: none;
-  }
-
-  .protocolo-steps {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .protocolo-step {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 13px 14px;
-    background: #f8fdf9;
-    border: 1px solid #d4edda;
-    border-radius: 10px;
-    transition: background 0.15s;
-  }
-  .step-num {
-    width: 24px; height: 24px;
-    background: #1b7a52;
-    color: white;
-    border-radius: 50%;
-    font-size: 12px;
-    font-weight: 700;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
-  .step-content { flex: 1; }
-  .step-accion {
-    font-size: 14px;
-    font-weight: 600;
-    color: #1b3a2a;
-    margin-bottom: 2px;
-  }
-  .step-detalle {
-    font-size: 12px;
-    color: #666;
-    line-height: 1.5;
-  }
-
-  .protocolo-alerta {
-    margin-top: 12px;
-    padding: 11px 14px;
-    background: #fff8e1;
-    border-left: 3px solid #f9a825;
-    border-radius: 0 8px 8px 0;
-    font-size: 13px;
-    color: #5d4037;
-    line-height: 1.5;
-  }
-  .protocolo-alerta strong { color: #e65100; }
-
-  .protocolo-fallback {
-    padding: 20px;
-    background: #f5f5f5;
-    border-radius: 10px;
-    font-size: 13px;
-    color: #666;
-    text-align: center;
-    line-height: 1.6;
-  }
-
-  /* ── Botón nuevo resultado ──────────────────────────────── */
   .btn-new {
-    margin-top: 28px;
+    margin-top: 20px;
     padding: 12px 28px;
     background: white;
     color: #1b7a52;
@@ -382,7 +270,6 @@
     .form-body, .submit-area { padding-left: 20px; padding-right: 20px; }
     .header { padding: 28px 20px; }
     .automatch-banner { margin: 16px 20px 0; }
-    .success-screen { padding: 32px 20px 40px; }
   }
 </style>
 </head>
@@ -411,6 +298,7 @@
         <span class="error-msg">Este campo es requerido</span>
       </div>
 
+      <!-- ✅ FIX: fechaEvento ahora está en validación y en el data enviado -->
       <div class="field" id="f-fechaEvento">
         <label>2. Fecha en que ocurrió el evento <span class="req">*</span></label>
         <span class="hint">El sistema usa esta fecha para identificar cuál evento estás cerrando — importante si hay varios eventos abiertos al mismo tiempo</span>
@@ -481,6 +369,7 @@
           <label class="checkbox-option"><input type="checkbox" name="resultado" value="Generó reclamos internos"><span class="cb-box">✓</span> Generó reclamos internos</label>
           <label class="checkbox-option"><input type="checkbox" name="resultado" value="La situación empeoró"><span class="cb-box">✓</span> La situación empeoró</label>
           <label class="checkbox-option"><input type="checkbox" name="resultado" value="Otros" id="cb-resultado-otros"><span class="cb-box">✓</span> Otros</label>
+          <!-- ✅ CAMPO OTROS: aparece solo al seleccionar "Otros" -->
           <input type="text" id="otros-resultado-texto" class="otros-input" placeholder="Especifica el resultado...">
         </div>
         <span class="error-msg">Selecciona al menos una opción</span>
@@ -623,27 +512,11 @@
     </button>
   </div>
 
-  <!-- ── SUCCESS SCREEN ─────────────────────────────────── -->
   <div class="success-screen" id="successScreen">
     <div class="success-icon">✅</div>
     <h2>¡Resultado registrado!</h2>
-    <p class="success-tagline">El resultado quedó vinculado al evento.<br>MAPA actualizó el Score automáticamente.</p>
     <div class="event-id-badge" id="eventIdDisplay">EV-000</div>
-
-    <!-- PROTOCOLO: aparece aquí después del submit -->
-    <div class="protocolo-wrapper" id="protocoloWrapper">
-      <div class="protocolo-header">
-        <div class="protocolo-icon-wrap" id="protocoloIcono">📋</div>
-        <div>
-          <div class="protocolo-eyebrow">Qué hacer ahora</div>
-          <div class="protocolo-titulo" id="protocoloTitulo">Protocolo del evento</div>
-        </div>
-      </div>
-      <hr class="protocolo-divider">
-      <div class="protocolo-steps" id="protocoloSteps"></div>
-      <div class="protocolo-alerta" id="protocoloAlerta" style="display:none"></div>
-    </div>
-
+    <p>El resultado quedó vinculado al evento.<br>MAPA actualizó el Score automáticamente.</p>
     <button class="btn-new" onclick="resetForm()">Registrar otro resultado</button>
   </div>
 
@@ -651,347 +524,171 @@
 </div>
 
 <script>
-// ══════════════════════════════════════════════════════════════
-// PROTOCOLOS POR TIPO DE EVENTO
-// Claves: texto exacto del campo tipoEvento en el sheet Eventos
-// ══════════════════════════════════════════════════════════════
-const PROTOCOLOS = {
+  // ── URL DEL WEB APP ─────────────────────────────────────
+  // Pega aquí la URL de tu web app de Apps Script
+  // (Implementar → Administrar implementaciones → copiar URL)
+  const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbycR6S7SmXuc245ZcOvOtyjh0A4eIjna1eADfqQKO52Fj9mkNovRPnFMLmflPDKZsZH/exec?page=resultado';
 
-  'Retraso en entrega': {
-    icono: '🚚',
-    titulo: 'Protocolo — Retraso en entrega',
-    pasos: [
-      {
-        accion: 'Documenta la nueva fecha acordada',
-        detalle: 'Guarda por escrito (correo o mensaje) la fecha comprometida por el proveedor tras el retraso.'
-      },
-      {
-        accion: 'Actualiza a producción o al área afectada',
-        detalle: 'Informa el impacto real y la nueva fecha para que ajusten su plan.'
-      },
-      {
-        accion: 'Evalúa si necesitas activar una alternativa',
-        detalle: 'Si el retraso supera X días (define tu umbral), activa el proveedor alterno o busca solución puente.'
-      },
-      {
-        accion: 'Registra el retraso en el expediente del proveedor',
-        detalle: 'Cada retraso suma al historial — es la base para negociar o cambiar de proveedor después.'
-      }
-    ],
-    alerta: '⏱ Si este proveedor ya tuvo retrasos antes: considera escalar la conversación a dirección antes del siguiente pedido.'
-  },
+  // ── JSONP HELPER ────────────────────────────────────────
+  // Apps Script no acepta fetch POST desde dominios externos.
+  // JSONP via GET es el único método que funciona sin servidor propio.
+  function _callWebApp(data, onSuccess, onError) {
+    const cbName = 'mapa_cb_' + Date.now();
+    const script = document.createElement('script');
+    const timeout = setTimeout(function() {
+      delete window[cbName];
+      if (document.body.contains(script)) document.body.removeChild(script);
+      onError && onError();
+    }, 15000);
 
-  'Problema de calidad': {
-    icono: '🔴',
-    titulo: 'Protocolo — Problema de calidad',
-    pasos: [
-      {
-        accion: 'Separa el material defectuoso inmediatamente',
-        detalle: 'Evita que material con problema llegue a producción. Etiqueta y cuantifica las piezas afectadas.'
-      },
-      {
-        accion: 'Notifica al proveedor con evidencia',
-        detalle: 'Fotos, número de lote, descripción del defecto. Exige confirmación de recepción.'
-      },
-      {
-        accion: 'Define quién absorbe el costo',
-        detalle: 'Reposición, flete de devolución, tiempo de paro — deja claro por escrito quién paga qué.'
-      },
-      {
-        accion: 'Solicita corrective action (causa raíz)',
-        detalle: 'Pide que el proveedor explique qué falló en su proceso y qué va a hacer diferente.'
-      }
-    ],
-    alerta: '⚠️ Si el problema de calidad afectó producción: el costo real puede ser mucho mayor al material. Documenta el paro o retraso causado.'
-  },
+    window[cbName] = function(result) {
+      clearTimeout(timeout);
+      delete window[cbName];
+      if (document.body.contains(script)) document.body.removeChild(script);
+      onSuccess(result);
+    };
 
-  'Incumplimiento de acuerdo': {
-    icono: '📄',
-    titulo: 'Protocolo — Incumplimiento de acuerdo',
-    pasos: [
-      {
-        accion: 'Recupera el acuerdo original por escrito',
-        detalle: 'Correo, orden de compra, cotización. Confirma que el incumplimiento es real y documentable.'
-      },
-      {
-        accion: 'Contacta al proveedor con el acuerdo en mano',
-        detalle: 'No confrontes de memoria. Muestra el documento y pregunta qué pasó.'
-      },
-      {
-        accion: 'Define compensación o corrección en plazo concreto',
-        detalle: 'Descuento, reposición o fecha específica de cumplimiento — nunca dejes el acuerdo "pendiente".'
-      },
-      {
-        accion: 'Evalúa si este proveedor sigue siendo viable',
-        detalle: 'Un incumplimiento puede ser un error. Dos incumplimientos son un patrón.'
-      }
-    ],
-    alerta: null
-  },
+    script.onerror = function() {
+      clearTimeout(timeout);
+      delete window[cbName];
+      onError && onError();
+    };
 
-  'Falta de comunicación': {
-    icono: '📵',
-    titulo: 'Protocolo — Falta de comunicación',
-    pasos: [
-      {
-        accion: 'Establece un canal y frecuencia de contacto',
-        detalle: 'Define con el proveedor: ¿por dónde se comunican? ¿Cada cuánto tiempo deben confirmarte estatus?'
-      },
-      {
-        accion: 'Asigna un contacto específico de su lado',
-        detalle: 'Evita depender de un número genérico. Necesitas hablar siempre con la misma persona.'
-      },
-      {
-        accion: 'Documenta los acuerdos de comunicación',
-        detalle: 'Un correo con el resumen de lo acordado basta. Si no está por escrito, no existe.'
-      }
-    ],
-    alerta: '💬 La falta de comunicación suele ser señal de problemas más grandes. Monitorea los próximos pedidos con más frecuencia.'
-  },
+    script.src = WEBAPP_URL +
+      '?action=submit' +
+      '&data=' + encodeURIComponent(JSON.stringify(data)) +
+      '&cb=' + cbName;
 
-  'Falta de material / desabasto': {
-    icono: '📦',
-    titulo: 'Protocolo — Desabasto',
-    pasos: [
-      {
-        accion: 'Confirma si el desabasto es temporal o estructural',
-        detalle: '¿Es un problema puntual del proveedor o hay escasez en el mercado? Define tu estrategia según la respuesta.'
-      },
-      {
-        accion: 'Activa tu fuente alterna si existe',
-        detalle: 'Si tienes proveedor alternativo calificado, este es el momento. Si no existe, es urgente desarrollar uno.'
-      },
-      {
-        accion: 'Ajusta tus inventarios de seguridad',
-        detalle: 'Si este material es crítico, revisa si tu nivel de stock de seguridad es suficiente para cubrir futuros desabastos similares.'
-      },
-      {
-        accion: 'Comunica el impacto a producción',
-        detalle: 'No esperes a que el paro llegue — informa con anticipación para que ajusten programación.'
-      }
-    ],
-    alerta: '🔴 Si este proveedor es tu única fuente de este material: desarrollar una alternativa es prioridad máxima ahora mismo.'
-  },
-
-  'Precio fuera de acuerdo': {
-    icono: '💸',
-    titulo: 'Protocolo — Precio fuera de acuerdo',
-    pasos: [
-      {
-        accion: 'Verifica el precio acordado en la orden de compra',
-        detalle: 'Compara el precio cobrado vs el precio pactado. Ten el documento listo antes de hablar con el proveedor.'
-      },
-      {
-        accion: 'No autorices el pago del diferencial sin justificación',
-        detalle: 'Pide al proveedor que explique por escrito la diferencia antes de procesar cualquier pago.'
-      },
-      {
-        accion: 'Negocia o acuerda el nuevo precio por escrito',
-        detalle: 'Si hay una razón válida (materia prima, tipo de cambio), acuerda el precio nuevo y actualiza tu orden de compra.'
-      }
-    ],
-    alerta: null
+    document.body.appendChild(script);
   }
 
-  // ── AGREGA MÁS TIPOS SEGÚN TU CATÁLOGO ─────────────────
-  // Copia el bloque de arriba y ajusta la clave al texto exacto
-  // que aparece en el campo tipoEvento del form de Evento.
-};
-
-// Protocolo genérico cuando no hay match exacto
-const PROTOCOLO_DEFAULT = {
-  icono: '📋',
-  titulo: 'Próximos pasos recomendados',
-  pasos: [
-    {
-      accion: 'Revisa el reporte semanal del viernes',
-      detalle: 'MAPA incluirá el análisis completo de este evento con recomendaciones específicas.'
-    },
-    {
-      accion: 'Documenta cualquier acuerdo pendiente',
-      detalle: 'Si quedaron compromisos del proveedor sin cerrar, regístralos por escrito antes de que pasen 48 horas.'
-    },
-    {
-      accion: 'Confirma que el área afectada ya está al tanto',
-      detalle: 'Producción, dirección o quien corresponda debe saber cómo quedó resuelto el evento.'
-    }
-  ],
-  alerta: null
-};
-
-
-// ══════════════════════════════════════════════════════════════
-// FUNCIÓN: renderizar protocolo en la pantalla de éxito
-// tipoEvento: string que viene del backend (campo en sheet Eventos)
-// ══════════════════════════════════════════════════════════════
-function mostrarProtocolo(tipoEvento) {
-  const wrapper = document.getElementById('protocoloWrapper');
-  const protocolo = (tipoEvento && PROTOCOLOS[tipoEvento]) ? PROTOCOLOS[tipoEvento] : PROTOCOLO_DEFAULT;
-
-  // Ícono y título
-  document.getElementById('protocoloIcono').textContent  = protocolo.icono;
-  document.getElementById('protocoloTitulo').textContent = protocolo.titulo;
-
-  // Pasos
-  const stepsEl = document.getElementById('protocoloSteps');
-  stepsEl.innerHTML = '';
-  protocolo.pasos.forEach(function(paso, i) {
-    const div = document.createElement('div');
-    div.className = 'protocolo-step';
-    div.innerHTML =
-      '<div class="step-num">' + (i + 1) + '</div>' +
-      '<div class="step-content">' +
-        '<div class="step-accion">' + paso.accion + '</div>' +
-        '<div class="step-detalle">' + paso.detalle + '</div>' +
-      '</div>';
-    stepsEl.appendChild(div);
+  // ── CHECKBOX VISUAL TOGGLE ──────────────────────────────
+  document.querySelectorAll('.checkbox-option input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const box = cb.parentElement.querySelector('.cb-box');
+      box.textContent = cb.checked ? '✓' : '';
+    });
   });
 
-  // Alerta opcional
-  const alertaEl = document.getElementById('protocoloAlerta');
-  if (protocolo.alerta) {
-    alertaEl.innerHTML = protocolo.alerta;
-    alertaEl.style.display = 'block';
-  } else {
-    alertaEl.style.display = 'none';
+  // ── MOSTRAR/OCULTAR CAMPO "OTROS" EN RESULTADO ─────────
+  document.getElementById('cb-resultado-otros').addEventListener('change', function() {
+    const input = document.getElementById('otros-resultado-texto');
+    input.style.display = this.checked ? 'block' : 'none';
+    if (this.checked) input.focus();
+    else input.value = '';
+  });
+
+  // ── VALIDATION ─────────────────────────────────────────
+  function validate() {
+    let ok = true;
+
+    // ✅ FIX: fechaEvento incluida en requeridos
+    const required = [
+      'fechaResolucion', 'fechaEvento', 'nombre', 'puesto',
+      'criterioPrevio', 'decisionSimilar',
+      'impactoEsperado', 'costoReal', 'generoProblemas',
+      'eraEvitable', 'loEscalarias', 'repetirias',
+      'confianzaCambio', 'planAlterno', 'decisionRegistrada', 'comoSeTomo'
+    ];
+
+    required.forEach(name => {
+      const field = document.getElementById('f-' + name);
+      const el    = document.getElementById(name);
+      if (!el || !el.value.trim()) {
+        field && field.classList.add('error');
+        ok = false;
+      } else {
+        field && field.classList.remove('error');
+      }
+    });
+
+    const resultadoOk = document.querySelectorAll('input[name="resultado"]:checked').length > 0;
+    document.getElementById('f-resultado').classList.toggle('error', !resultadoOk);
+    if (!resultadoOk) ok = false;
+
+    return ok;
   }
 
-  // Mostrar con animación
-  wrapper.style.display = 'block';
-}
-
-
-// ── CHECKBOX VISUAL TOGGLE ──────────────────────────────
-document.querySelectorAll('.checkbox-option input[type="checkbox"]').forEach(function(cb) {
-  cb.addEventListener('change', function() {
-    const box = cb.parentElement.querySelector('.cb-box');
-    box.textContent = cb.checked ? '✓' : '';
-  });
-});
-
-// ── MOSTRAR/OCULTAR CAMPO "OTROS" EN RESULTADO ─────────
-document.getElementById('cb-resultado-otros').addEventListener('change', function() {
-  const input = document.getElementById('otros-resultado-texto');
-  input.style.display = this.checked ? 'block' : 'none';
-  if (this.checked) input.focus();
-  else input.value = '';
-});
-
-// ── VALIDATION ─────────────────────────────────────────
-function validate() {
-  let ok = true;
-  const required = [
-    'fechaResolucion', 'fechaEvento', 'nombre', 'puesto',
-    'criterioPrevio', 'decisionSimilar',
-    'impactoEsperado', 'costoReal', 'generoProblemas',
-    'eraEvitable', 'loEscalarias', 'repetirias',
-    'confianzaCambio', 'planAlterno', 'decisionRegistrada', 'comoSeTomo'
-  ];
-  required.forEach(function(name) {
-    const field = document.getElementById('f-' + name);
-    const el    = document.getElementById(name);
-    if (!el || !el.value.trim()) {
-      field && field.classList.add('error');
-      ok = false;
-    } else {
-      field && field.classList.remove('error');
+  // ── FORM SUBMIT ─────────────────────────────────────────
+  document.getElementById('resultadoForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (!validate()) {
+      document.querySelector('.field.error')?.scrollIntoView({behavior:'smooth', block:'center'});
+      return;
     }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>Registrando...';
+
+    // Recopilar resultados — si "Otros" está marcado y tiene texto, se concatena
+    const otrosResultadoTexto = document.getElementById('otros-resultado-texto').value.trim();
+    const resultados = Array.from(
+      document.querySelectorAll('input[name="resultado"]:checked')
+    ).map(cb => (cb.value === 'Otros' && otrosResultadoTexto) ? 'Otros: ' + otrosResultadoTexto : cb.value).join(', ');
+
+    const data = {
+      fechaResolucion:      document.getElementById('fechaResolucion').value,
+      // ✅ FIX: fechaEvento ahora se envía al backend para el auto-match por fecha
+      fechaEvento:          document.getElementById('fechaEvento').value,
+      nombre:               document.getElementById('nombre').value.trim(),
+      puesto:               document.getElementById('puesto').value.trim(),
+      criterioPrevio:       document.getElementById('criterioPrevio').value,
+      decisionSimilar:      document.getElementById('decisionSimilar').value,
+      resultadoAlternativo: document.getElementById('resultadoAlternativo').value,
+      resultado:            resultados,
+      impactoEsperado:      document.getElementById('impactoEsperado').value,
+      costoReal:            document.getElementById('costoReal').value,
+      generoProblemas:      document.getElementById('generoProblemas').value,
+      eraEvitable:          document.getElementById('eraEvitable').value,
+      loEscalarias:         document.getElementById('loEscalarias').value,
+      repetirias:           document.getElementById('repetirias').value,
+      confianzaCambio:      document.getElementById('confianzaCambio').value,
+      planAlterno:          document.getElementById('planAlterno').value,
+      decisionRegistrada:   document.getElementById('decisionRegistrada').value,
+      comoSeTomo:           document.getElementById('comoSeTomo').value,
+      observaciones:        document.getElementById('observaciones').value.trim()
+    };
+
+    data._tipo = 'resultado';
+
+    // JSONP — único método que funciona llamando Apps Script desde dominio externo
+    _callWebApp(data, function(result) {
+      if (result.success) {
+        document.getElementById('eventIdDisplay').textContent = result.id;
+        document.querySelector('.form-body').style.display = 'none';
+        document.querySelector('.submit-area').style.display = 'none';
+        document.querySelector('.automatch-banner').style.display = 'none';
+        document.getElementById('successScreen').style.display = 'block';
+      } else {
+        btn.disabled = false;
+        btn.innerHTML = 'Registrar Resultado';
+        alert('Error: ' + (result.error || 'Desconocido') + '\nIntenta de nuevo.');
+      }
+    }, function() {
+      btn.disabled = false;
+      btn.innerHTML = 'Registrar Resultado';
+      alert('Error de conexión. Verifica tu internet e intenta de nuevo.');
+    });
   });
-  const resultadoOk = document.querySelectorAll('input[name="resultado"]:checked').length > 0;
-  document.getElementById('f-resultado').classList.toggle('error', !resultadoOk);
-  if (!resultadoOk) ok = false;
-  return ok;
-}
 
-// ── FORM SUBMIT ─────────────────────────────────────────
-document.getElementById('resultadoForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  if (!validate()) {
-    document.querySelector('.field.error')?.scrollIntoView({behavior:'smooth', block:'center'});
-    return;
-  }
-
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner"></span>Registrando...';
-
-  const otrosResultadoTexto = document.getElementById('otros-resultado-texto').value.trim();
-  const resultados = Array.from(
-    document.querySelectorAll('input[name="resultado"]:checked')
-  ).map(function(cb) {
-    return (cb.value === 'Otros' && otrosResultadoTexto) ? 'Otros: ' + otrosResultadoTexto : cb.value;
-  }).join(', ');
-
-  const data = {
-    fechaResolucion:      document.getElementById('fechaResolucion').value,
-    fechaEvento:          document.getElementById('fechaEvento').value,
-    nombre:               document.getElementById('nombre').value.trim(),
-    puesto:               document.getElementById('puesto').value.trim(),
-    criterioPrevio:       document.getElementById('criterioPrevio').value,
-    decisionSimilar:      document.getElementById('decisionSimilar').value,
-    resultadoAlternativo: document.getElementById('resultadoAlternativo').value,
-    resultado:            resultados,
-    impactoEsperado:      document.getElementById('impactoEsperado').value,
-    costoReal:            document.getElementById('costoReal').value,
-    generoProblemas:      document.getElementById('generoProblemas').value,
-    eraEvitable:          document.getElementById('eraEvitable').value,
-    loEscalarias:         document.getElementById('loEscalarias').value,
-    repetirias:           document.getElementById('repetirias').value,
-    confianzaCambio:      document.getElementById('confianzaCambio').value,
-    planAlterno:          document.getElementById('planAlterno').value,
-    decisionRegistrada:   document.getElementById('decisionRegistrada').value,
-    comoSeTomo:           document.getElementById('comoSeTomo').value,
-    observaciones:        document.getElementById('observaciones').value.trim()
-  };
-  data._tipo = 'resultado';
-
-  fetch(window.location.href.split('?')[0], {
-    method: 'POST',
-    body: JSON.stringify(data)
-  })
-  .then(function(r) { return r.json(); })
-  .then(function(result) {
-    if (result.success) {
-      // Mostrar pantalla de éxito
-      document.getElementById('eventIdDisplay').textContent = result.id;
-      document.querySelector('.form-body').style.display = 'none';
-      document.querySelector('.submit-area').style.display = 'none';
-      document.querySelector('.automatch-banner').style.display = 'none';
-      document.getElementById('successScreen').style.display = 'block';
-
-      // ← NUEVO: mostrar protocolo del tipo de evento
-      mostrarProtocolo(result.tipoEvento || null);
-
-      window.scrollTo({top: 0, behavior: 'smooth'});
-    } else {
-      throw new Error(result.error);
-    }
-  })
-  .catch(function(err) {
+  // ── RESET ───────────────────────────────────────────────
+  function resetForm() {
+    document.getElementById('resultadoForm').reset();
+    document.querySelectorAll('.field.error').forEach(f => f.classList.remove('error'));
+    document.querySelectorAll('.cb-box').forEach(b => b.textContent = '');
+    const otrosInput = document.getElementById('otros-resultado-texto');
+    otrosInput.value = '';
+    otrosInput.style.display = 'none';
+    document.querySelector('.form-body').style.display = 'block';
+    document.querySelector('.submit-area').style.display = 'block';
+    document.querySelector('.automatch-banner').style.display = 'block';
+    document.getElementById('successScreen').style.display = 'none';
+    const btn = document.getElementById('submitBtn');
     btn.disabled = false;
     btn.innerHTML = 'Registrar Resultado';
-    alert('Error: ' + err.message + '\nIntenta de nuevo.');
-  });
-});
-
-// ── RESET ───────────────────────────────────────────────
-function resetForm() {
-  document.getElementById('resultadoForm').reset();
-  document.querySelectorAll('.field.error').forEach(function(f) { f.classList.remove('error'); });
-  document.querySelectorAll('.cb-box').forEach(function(b) { b.textContent = ''; });
-  const otrosInput = document.getElementById('otros-resultado-texto');
-  otrosInput.value = '';
-  otrosInput.style.display = 'none';
-  document.querySelector('.form-body').style.display = 'block';
-  document.querySelector('.submit-area').style.display = 'block';
-  document.querySelector('.automatch-banner').style.display = 'block';
-  document.getElementById('successScreen').style.display = 'none';
-  document.getElementById('protocoloWrapper').style.display = 'none';
-  const btn = document.getElementById('submitBtn');
-  btn.disabled = false;
-  btn.innerHTML = 'Registrar Resultado';
-  window.scrollTo({top: 0, behavior: 'smooth'});
-}
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }
 </script>
 </body>
 </html>
