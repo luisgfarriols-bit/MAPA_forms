@@ -6,291 +6,91 @@
 <title>MAPA - Piloto Evento</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
-
   * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: 'DM Sans', system-ui, sans-serif;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #2d1b69 0%, #1a237e 40%, #283593 100%);
-    padding: 24px 16px 48px;
-  }
-
-  .card {
-    max-width: 680px;
-    margin: 0 auto;
-    background: white;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 24px 64px rgba(0,0,0,0.3);
-  }
-
-  .header {
-    background: linear-gradient(135deg, #1a237e 0%, #283593 60%, #3949ab 100%);
-    padding: 36px 32px;
-    text-align: center;
-    color: white;
-  }
+  body { font-family: 'DM Sans', system-ui, sans-serif; min-height: 100vh; background: linear-gradient(135deg, #2d1b69 0%, #1a237e 40%, #283593 100%); padding: 24px 16px 48px; }
+  .card { max-width: 680px; margin: 0 auto; background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 24px 64px rgba(0,0,0,0.3); }
+  .header { background: linear-gradient(135deg, #1a237e 0%, #283593 60%, #3949ab 100%); padding: 36px 32px; text-align: center; color: white; }
   .header-icon { font-size: 36px; margin-bottom: 8px; }
   .header h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
   .header p { margin-top: 6px; font-size: 14px; opacity: 0.8; }
-
   .form-body { padding: 32px 32px 24px; }
-
-  .section {
-    margin-bottom: 28px;
-    padding-bottom: 28px;
-    border-bottom: 1px solid #f0f0f0;
-  }
+  .section { margin-bottom: 28px; padding-bottom: 28px; border-bottom: 1px solid #f0f0f0; }
   .section:last-of-type { border-bottom: none; }
-
-  .section-title {
-    font-size: 16px;
-    font-weight: 700;
-    color: #1a237e;
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #e8eaf6;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
+  .section-title { font-size: 16px; font-weight: 700; color: #1a237e; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #e8eaf6; display: flex; align-items: center; gap: 8px; }
   .field { margin-bottom: 18px; }
   .field:last-child { margin-bottom: 0; }
-
-  label {
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
-    color: #2c2c2c;
-    margin-bottom: 6px;
-  }
+  label { display: block; font-size: 14px; font-weight: 600; color: #2c2c2c; margin-bottom: 6px; }
   label .req { color: #e53935; margin-left: 2px; }
-
-  .hint {
-    font-size: 12px;
-    font-weight: 400;
-    color: #888;
-    margin-bottom: 6px;
-    display: block;
-  }
-
-  input[type="date"],
-  input[type="text"],
-  select,
-  textarea {
-    width: 100%;
-    padding: 11px 14px;
-    border: 1.5px solid #e0e0e0;
-    border-radius: 10px;
-    font-family: inherit;
-    font-size: 14px;
-    color: #2c2c2c;
-    background: white;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    appearance: none;
-    -webkit-appearance: none;
-  }
-  input[type="date"]:focus,
-  input[type="text"]:focus,
-  select:focus,
-  textarea:focus {
-    outline: none;
-    border-color: #3949ab;
-    box-shadow: 0 0 0 3px rgba(57,73,171,0.12);
-  }
-  select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23666' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 14px center;
-    padding-right: 36px;
-    cursor: pointer;
-  }
-  textarea {
-    resize: vertical;
-    min-height: 90px;
-    line-height: 1.5;
-  }
+  .hint { font-size: 12px; font-weight: 400; color: #888; margin-bottom: 6px; display: block; }
+  input[type="date"], input[type="text"], select, textarea { width: 100%; padding: 11px 14px; border: 1.5px solid #e0e0e0; border-radius: 10px; font-family: inherit; font-size: 14px; color: #2c2c2c; background: white; transition: border-color 0.2s, box-shadow 0.2s; appearance: none; -webkit-appearance: none; }
+  input[type="date"]:focus, input[type="text"]:focus, select:focus, textarea:focus { outline: none; border-color: #3949ab; box-shadow: 0 0 0 3px rgba(57,73,171,0.12); }
+  select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23666' d='M6 8L0 0h12z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; cursor: pointer; }
+  textarea { resize: vertical; min-height: 90px; line-height: 1.5; }
   input::placeholder, textarea::placeholder { color: #bbb; }
-
-  .radio-group {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-top: 2px;
-  }
-  .radio-option {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 9px 16px;
-    border: 1.5px solid #e0e0e0;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    color: #444;
-    transition: all 0.15s;
-    user-select: none;
-  }
+  .radio-group { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 2px; }
+  .radio-option { display: flex; align-items: center; gap: 6px; padding: 9px 16px; border: 1.5px solid #e0e0e0; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 500; color: #444; transition: all 0.15s; user-select: none; }
   .radio-option input[type="radio"] { display: none; }
-  .radio-option:has(input:checked) {
-    border-color: #3949ab;
-    background: #e8eaf6;
-    color: #1a237e;
-  }
+  .radio-option:has(input:checked) { border-color: #3949ab; background: #e8eaf6; color: #1a237e; }
   .radio-option:hover { border-color: #9fa8da; }
-
-  .checkbox-group {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .checkbox-option {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 9px 14px;
-    border: 1.5px solid #e0e0e0;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    color: #444;
-    transition: all 0.15s;
-    user-select: none;
-  }
+  .checkbox-group { display: flex; flex-direction: column; gap: 8px; }
+  .checkbox-option { display: flex; align-items: center; gap: 10px; padding: 9px 14px; border: 1.5px solid #e0e0e0; border-radius: 8px; cursor: pointer; font-size: 14px; color: #444; transition: all 0.15s; user-select: none; }
   .checkbox-option input[type="checkbox"] { display: none; }
-  .checkbox-option .cb-box {
-    width: 18px; height: 18px;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.15s;
-    font-size: 11px;
-    color: white;
-  }
-  .checkbox-option:has(input:checked) {
-    border-color: #3949ab;
-    background: #e8eaf6;
-    color: #1a237e;
-  }
-  .checkbox-option:has(input:checked) .cb-box {
-    background: #3949ab;
-    border-color: #3949ab;
-  }
+  .checkbox-option .cb-box { width: 18px; height: 18px; border: 2px solid #ccc; border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.15s; font-size: 11px; color: white; }
+  .checkbox-option:has(input:checked) { border-color: #3949ab; background: #e8eaf6; color: #1a237e; }
+  .checkbox-option:has(input:checked) .cb-box { background: #3949ab; border-color: #3949ab; }
   .checkbox-option:hover { border-color: #9fa8da; }
-
-  .otros-input {
-    display: none;
-    margin-top: 6px;
-    padding: 9px 14px;
-    width: 100%;
-    border: 1.5px dashed #9fa8da;
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 14px;
-    color: #2c2c2c;
-    background: #f8f9ff;
-  }
-  .otros-input:focus {
-    outline: none;
-    border-color: #3949ab;
-    border-style: solid;
-    box-shadow: 0 0 0 3px rgba(57,73,171,0.12);
-  }
-
-  .field.error input,
-  .field.error select,
-  .field.error textarea {
-    border-color: #e53935;
-  }
-  .error-msg {
-    font-size: 12px;
-    color: #e53935;
-    margin-top: 4px;
-    display: none;
-  }
+  .otros-input { display: none; margin-top: 6px; padding: 9px 14px; width: 100%; border: 1.5px dashed #9fa8da; border-radius: 8px; font-family: inherit; font-size: 14px; color: #2c2c2c; background: #f8f9ff; }
+  .otros-input:focus { outline: none; border-color: #3949ab; border-style: solid; box-shadow: 0 0 0 3px rgba(57,73,171,0.12); }
+  .field.error input, .field.error select, .field.error textarea { border-color: #e53935; }
+  .error-msg { font-size: 12px; color: #e53935; margin-top: 4px; display: none; }
   .field.error .error-msg { display: block; }
-
   .submit-area { padding: 0 32px 32px; }
-
-  .btn-submit {
-    width: 100%;
-    padding: 16px;
-    background: linear-gradient(135deg, #1a237e, #3949ab);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-family: inherit;
-    font-size: 16px;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-    cursor: pointer;
-    transition: all 0.2s;
-    position: relative;
-  }
+  .btn-submit { width: 100%; padding: 16px; background: linear-gradient(135deg, #1a237e, #3949ab); color: white; border: none; border-radius: 12px; font-family: inherit; font-size: 16px; font-weight: 700; letter-spacing: 0.3px; cursor: pointer; transition: all 0.2s; }
   .btn-submit:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(26,35,126,0.35); }
   .btn-submit:active { transform: translateY(0); }
   .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-
-  .spinner {
-    display: inline-block;
-    width: 16px; height: 16px;
-    border: 2px solid rgba(255,255,255,0.4);
-    border-top-color: white;
-    border-radius: 50%;
-    animation: spin 0.7s linear infinite;
-    margin-right: 8px;
-    vertical-align: middle;
-  }
+  .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.4); border-top-color: white; border-radius: 50%; animation: spin 0.7s linear infinite; margin-right: 8px; vertical-align: middle; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  .success-screen {
-    display: none;
-    padding: 48px 32px;
-    text-align: center;
-  }
-  .success-icon { font-size: 64px; margin-bottom: 16px; }
-  .success-screen h2 { font-size: 22px; font-weight: 700; color: #1a237e; margin-bottom: 8px; }
-  .success-screen p { font-size: 14px; color: #666; line-height: 1.6; }
-  .event-id-badge {
-    display: inline-block;
-    margin: 16px auto;
-    padding: 12px 28px;
-    background: #e8eaf6;
-    border: 2px solid #3949ab;
-    border-radius: 10px;
-    font-size: 22px;
-    font-weight: 800;
-    color: #1a237e;
-    letter-spacing: 2px;
-  }
-  .btn-new {
-    margin-top: 20px;
-    padding: 12px 28px;
-    background: white;
-    color: #3949ab;
-    border: 2px solid #3949ab;
-    border-radius: 10px;
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .btn-new:hover { background: #e8eaf6; }
+  /* ── SUCCESS ─────────────────────────────────────────── */
+  .success-screen { display: none; padding: 40px 32px 48px; text-align: center; }
+  .success-icon { font-size: 56px; margin-bottom: 12px; }
+  .success-screen h2 { font-size: 22px; font-weight: 700; color: #1a237e; margin-bottom: 6px; }
+  .success-tagline { font-size: 14px; color: #888; margin-bottom: 16px; line-height: 1.6; }
+  .event-id-badge { display: inline-block; margin: 0 auto 24px; padding: 10px 28px; background: #e8eaf6; border: 2px solid #3949ab; border-radius: 10px; font-size: 22px; font-weight: 800; color: #1a237e; letter-spacing: 2px; }
 
-  @media (max-width: 500px) {
-    .form-body, .submit-area { padding-left: 20px; padding-right: 20px; }
-    .header { padding: 28px 20px; }
-    .radio-group { flex-direction: column; }
-  }
+  /* ── PROTOCOLO (tema azul) ───────────────────────────── */
+  .protocolo-wrapper { display: none; text-align: left; animation: fadeUp 0.4s ease both; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+  .p-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .p-badge { padding: 4px 12px; background: #1a237e; color: white; border-radius: 20px; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+  .p-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #3949ab; opacity: 0.8; margin-bottom: 2px; }
+  .p-titulo { font-size: 15px; font-weight: 700; color: #1a237e; line-height: 1.3; }
+  hr.pdiv { border: none; height: 1px; background: linear-gradient(to right, #3949ab, #e8eaf6); margin: 0 0 14px; }
+  .p-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: #3949ab; margin-bottom: 8px; display: block; margin-top: 14px; }
+  .p-label:first-of-type { margin-top: 0; }
+  .p-steps { display: flex; flex-direction: column; gap: 7px; }
+  .p-step { display: flex; align-items: flex-start; gap: 10px; padding: 10px 13px; background: #f8f9ff; border: 1px solid #c5cae9; border-radius: 9px; }
+  .p-num { width: 22px; height: 22px; background: #3949ab; color: white; border-radius: 50%; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .p-text { font-size: 13px; color: #1a237e; line-height: 1.5; }
+  .p-evitar { display: flex; flex-direction: column; gap: 6px; }
+  .p-ev-item { display: flex; align-items: flex-start; gap: 8px; padding: 9px 12px; background: #fff3f3; border: 1px solid #ffcdd2; border-radius: 8px; font-size: 13px; color: #5c1a1a; line-height: 1.4; }
+  .p-x { color: #e53935; font-weight: 700; flex-shrink: 0; }
+  .p-porqué { padding: 12px 14px; background: #e8eaf6; border-left: 3px solid #3949ab; border-radius: 0 8px 8px 0; font-size: 13px; color: #1a237e; line-height: 1.6; }
+  .p-transv { display: flex; flex-direction: column; gap: 6px; }
+  .p-transv-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: #fffde7; border: 1px solid #fff176; border-radius: 8px; }
+  .p-tbadge { padding: 2px 8px; background: #f9a825; color: #1a1a00; border-radius: 12px; font-size: 10px; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+  .p-ttitulo { font-size: 12px; font-weight: 700; color: #5d4037; margin-bottom: 2px; }
+  .p-taccion { font-size: 12px; color: #6d4c41; line-height: 1.4; }
+  .p-confianza { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; background: #f5f5f5; border-radius: 20px; font-size: 11px; color: #888; font-weight: 600; margin-top: 14px; }
+  .p-fallback { padding: 20px; background: #f9f9f9; border-radius: 10px; text-align: center; font-size: 13px; color: #888; line-height: 1.6; margin-bottom: 4px; }
+
+  .btn-new { margin-top: 24px; padding: 12px 28px; background: white; color: #3949ab; border: 2px solid #3949ab; border-radius: 10px; font-family: inherit; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.15s; display: block; width: 100%; }
+  .btn-new:hover { background: #e8eaf6; }
+  @media (max-width: 500px) { .form-body, .submit-area { padding-left: 20px; padding-right: 20px; } .header { padding: 28px 20px; } .radio-group { flex-direction: column; } .success-screen { padding: 32px 20px 40px; } }
 </style>
 </head>
 <body>
-
 <div class="card">
   <div class="header">
     <div class="header-icon">📋</div>
@@ -300,34 +100,28 @@
 
   <form id="eventoForm" novalidate>
   <div class="form-body">
-
     <div class="section">
       <div class="section-title">📋 Identificación</div>
-
       <div class="field" id="f-fecha">
         <label>1. Fecha del evento <span class="req">*</span></label>
         <input type="date" name="fecha" id="fecha">
         <span class="error-msg">Este campo es requerido</span>
       </div>
-
       <div class="field" id="f-nombre">
         <label>2. Nombre de quien registra <span class="req">*</span></label>
         <input type="text" name="nombre" id="nombre" placeholder="Tu nombre completo">
         <span class="error-msg">Este campo es requerido</span>
       </div>
-
       <div class="field" id="f-puesto">
         <label>3. Puesto <span class="req">*</span></label>
         <input type="text" name="puesto" id="puesto" placeholder="Ej: Compras, Producción, Dirección">
         <span class="error-msg">Este campo es requerido</span>
       </div>
-
       <div class="field" id="f-proveedor">
         <label>4. Proveedor involucrado <span class="req">*</span></label>
         <input type="text" name="proveedor" id="proveedor" placeholder="Escribe el nombre del proveedor">
         <span class="error-msg">Este campo es requerido</span>
       </div>
-
       <div class="field" id="f-critico">
         <label>5. ¿Este proveedor es crítico para la operación? <span class="req">*</span></label>
         <div class="radio-group">
@@ -336,7 +130,6 @@
         </div>
         <span class="error-msg">Selecciona una opción</span>
       </div>
-
       <div class="field" id="f-alternativa">
         <label>6. ¿Existía una alternativa real al proveedor? <span class="req">*</span></label>
         <div class="radio-group">
@@ -350,7 +143,6 @@
 
     <div class="section">
       <div class="section-title">⚠️ Tipo de Evento</div>
-
       <div class="field" id="f-tipoEvento">
         <label>7. ¿Qué tipo de evento ocurrió? <span class="req">*</span></label>
         <select name="tipoEvento" id="tipoEvento">
@@ -365,7 +157,6 @@
         </select>
         <span class="error-msg">Selecciona una opción</span>
       </div>
-
       <div class="field" id="f-haOcurrido">
         <label>8. ¿Ha ocurrido anteriormente un evento muy similar? <span class="req">*</span></label>
         <select name="haOcurrido" id="haOcurrido">
@@ -376,7 +167,6 @@
         </select>
         <span class="error-msg">Selecciona una opción</span>
       </div>
-
       <div class="field" id="f-decisionesDistintas">
         <label>9. Si ya ocurrió antes, ¿las diferentes áreas han tomado decisiones distintas? <span class="req">*</span></label>
         <select name="decisionesDistintas" id="decisionesDistintas">
@@ -392,7 +182,6 @@
 
     <div class="section">
       <div class="section-title">🔥 Contexto Operativo</div>
-
       <div class="field" id="f-inventario">
         <label>10. ¿Había inventario disponible para cubrir el evento? <span class="req">*</span></label>
         <select name="inventario" id="inventario">
@@ -403,7 +192,6 @@
         </select>
         <span class="error-msg">Selecciona una opción</span>
       </div>
-
       <div class="field" id="f-riesgo">
         <label>11. ¿Este evento ponía en riesgo producción inmediata? <span class="req">*</span></label>
         <select name="riesgo" id="riesgo">
@@ -414,7 +202,6 @@
         </select>
         <span class="error-msg">Selecciona una opción</span>
       </div>
-
       <div class="field" id="f-urgencia">
         <label>12. Nivel de urgencia del evento <span class="req">*</span></label>
         <select name="urgencia" id="urgencia">
@@ -427,7 +214,6 @@
         </select>
         <span class="error-msg">Selecciona una opción</span>
       </div>
-
       <div class="field" id="f-impacto">
         <label>13. Impacto estimado si no se resuelve ahora <span class="req">*</span></label>
         <select name="impacto" id="impacto">
@@ -439,7 +225,6 @@
         </select>
         <span class="error-msg">Selecciona una opción</span>
       </div>
-
       <div class="field" id="f-decisionInmediata">
         <label>14. ¿Este evento requería decisión inmediata? <span class="req">*</span></label>
         <select name="decisionInmediata" id="decisionInmediata">
@@ -450,7 +235,6 @@
         </select>
         <span class="error-msg">Selecciona una opción</span>
       </div>
-
       <div class="field" id="f-fechaAcordada">
         <label>15. ¿La fecha de entrega estaba claramente acordada? <span class="req">*</span></label>
         <select name="fechaAcordada" id="fechaAcordada">
@@ -461,7 +245,6 @@
         </select>
         <span class="error-msg">Selecciona una opción</span>
       </div>
-
       <div class="field" id="f-acuerdoFormal">
         <label>16. ¿Existe un acuerdo formal previamente establecido? <span class="req">*</span></label>
         <select name="acuerdoFormal" id="acuerdoFormal">
@@ -477,7 +260,6 @@
 
     <div class="section">
       <div class="section-title">⚡ Decisión</div>
-
       <div class="field" id="f-tiempoDecision">
         <label>17. ¿Cuánto tiempo tomó decidir? <span class="req">*</span></label>
         <select name="tiempoDecision" id="tiempoDecision">
@@ -490,7 +272,6 @@
         </select>
         <span class="error-msg">Selecciona una opción</span>
       </div>
-
       <div class="field" id="f-decision">
         <label>18. ¿Qué decisión se tomó? (puedes seleccionar más de una) <span class="req">*</span></label>
         <div class="checkbox-group">
@@ -510,7 +291,6 @@
         </div>
         <span class="error-msg">Selecciona al menos una opción</span>
       </div>
-
       <div class="field" id="f-proveedorActivado">
         <label>19. ¿Se activó un proveedor alternativo como parte de la respuesta? <span class="req">*</span></label>
         <select name="proveedorActivado" id="proveedorActivado">
@@ -525,7 +305,6 @@
 
     <div class="section">
       <div class="section-title">💰 Exposición Futura</div>
-
       <div class="field" id="f-ordenes">
         <label>20. ¿Cuántas órdenes dependen de este proveedor en los próximos 30 días? <span class="req">*</span></label>
         <select name="ordenes" id="ordenes">
@@ -537,7 +316,6 @@
         </select>
         <span class="error-msg">Selecciona una opción</span>
       </div>
-
       <div class="field" id="f-valor">
         <label>21. ¿Cuál es el valor aproximado de esas órdenes? <span class="req">*</span></label>
         <span class="hint">Determina el nivel de alerta (Roja / Amarilla)</span>
@@ -559,20 +337,51 @@
         <textarea name="observaciones" id="observaciones" placeholder="Solo si algo importante no quedó registrado..."></textarea>
       </div>
     </div>
-
   </div>
 
   <div class="submit-area">
-    <button type="submit" class="btn-submit" id="submitBtn">
-      Registrar Evento
-    </button>
+    <button type="submit" class="btn-submit" id="submitBtn">Registrar Evento</button>
   </div>
 
+  <!-- ── SUCCESS SCREEN ─────────────────────────────────── -->
   <div class="success-screen" id="successScreen">
     <div class="success-icon">✅</div>
     <h2>¡Evento registrado!</h2>
+    <p class="success-tagline">Guarda este ID — lo necesitarás cuando el evento quede resuelto.</p>
     <div class="event-id-badge" id="eventIdDisplay">EV-000</div>
-    <p>Guarda este ID. Lo necesitarás cuando<br>el evento quede resuelto.</p>
+
+    <!-- Protocolo seleccionado automáticamente -->
+    <div class="protocolo-wrapper" id="protocoloWrapper">
+      <div class="p-head">
+        <div class="p-badge" id="pId">P-00</div>
+        <div>
+          <div class="p-eyebrow">Protocolo recomendado por MAPA</div>
+          <div class="p-titulo" id="pTitulo">—</div>
+        </div>
+      </div>
+      <hr class="pdiv">
+
+      <span class="p-label">✅ Acciones recomendadas</span>
+      <div class="p-steps" id="pAcciones"></div>
+
+      <span class="p-label">🚫 Qué evitar</span>
+      <div class="p-evitar" id="pEvitar"></div>
+
+      <span class="p-label">💡 Por qué</span>
+      <div class="p-porqué" id="pPorQue"></div>
+
+      <div id="pTransvSection" style="display:none;">
+        <span class="p-label">⚠️ También aplica</span>
+        <div class="p-transv" id="pTransvLista"></div>
+      </div>
+
+      <div class="p-confianza">⚠️ Protocolo genérico — se personaliza con el historial de tu proveedor</div>
+    </div>
+
+    <div class="p-fallback" id="pFallback" style="display:none;">
+      Revisa el banco de protocolos MAPA para este tipo de evento.
+    </div>
+
     <button class="btn-new" onclick="resetForm()">Registrar otro evento</button>
   </div>
 
@@ -580,174 +389,246 @@
 </div>
 
 <script>
-  // ── URL DEL WEB APP ─────────────────────────────────────
-  // Misma URL para evento y resultado — cópiala de:
-  // Apps Script → Implementar → Administrar implementaciones → copiar URL
-  const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbycR6S7SmXuc245ZcOvOtyjh0A4eIjna1eADfqQKO52Fj9mkNovRPnFMLmflPDKZsZH/exec';
+// ── URL DEL WEB APP ────────────────────────────────────────
+const WEBAPP_URL = 'https://script.google.com/macros/s/AKfycbycR6S7SmXuc245ZcOvOtyjh0A4eIjna1eADfqQKO52Fj9mkNovRPnFMLmflPDKZsZH/exec';
 
-  // ── JSONP HELPER ────────────────────────────────────────
-  // Apps Script no acepta fetch POST desde dominios externos.
-  // JSONP via GET es el único método que funciona sin servidor propio.
-  function _callWebApp(data, onSuccess, onError) {
-    const cbName = 'mapa_cb_' + Date.now();
-    const script = document.createElement('script');
-    const timeout = setTimeout(function() {
-      delete window[cbName];
-      if (document.body.contains(script)) document.body.removeChild(script);
-      onError && onError();
-    }, 15000);
+// ══════════════════════════════════════════════════════════
+// BANCO DE PROTOCOLOS GENÉRICOS
+// ══════════════════════════════════════════════════════════
+var P = {
+  'P-01': { titulo:'Retraso sin aviso — Proveedor crítico sin inventario', acciones:['Escalar internamente en menos de 2 horas.','Escalar con el proveedor simultáneamente — no secuencial.','Activar proveedor alterno en paralelo sin esperar respuesta.','Notificar al área afectada de inmediato.'], evitar:['Esperar respuesta del proveedor antes de actuar.','Escalar solo internamente sin presionar al proveedor.','Asumir que el proveedor resolverá solo.'], porQue:'Cuando el proveedor crítico no avisa, cada hora sin respuesta aumenta exponencialmente el riesgo de paro. La activación paralela del alterno no compromete la relación — reserva el derecho de cambiar sin cerrarlo.' },
+  'P-02': { titulo:'Retraso sin aviso — Proveedor crítico con inventario disponible', acciones:['Insistir con el proveedor por canal formal (escrito).','Establecer plazo máximo de respuesta: 12 horas.','Si no responde en 12 horas → activar protocolo P-01.'], evitar:['Asumir que llegará y no hacer seguimiento.','Escalar prematuramente — desgasta la relación sin necesidad.','Ignorar el evento porque hay inventario disponible.'], porQue:'El inventario disponible da margen para insistir antes de escalar. Pero hay inventario no significa no pasa nada — el evento debe registrarse y monitorearse activamente.' },
+  'P-03': { titulo:'Retraso sin aviso — Proveedor no crítico', acciones:['Insistir con el proveedor por canal formal.','Dar plazo explícito de 24-48 horas para resolución.','Documentar el evento aunque no sea crítico.','Si supera el plazo → escalar internamente.'], evitar:['Ignorar el evento porque el proveedor no es crítico.','No registrar — los eventos pequeños son los que forman patrones.'], porQue:'Los proveedores no críticos también forman patrones. Uno que retrasa sin aviso 3 veces en 60 días se convierte en un riesgo documentado antes de que el equipo lo perciba como tal.' },
+  'P-04': { titulo:'Retraso avisado — Proveedor crítico sin inventario', acciones:['Negociar nueva fecha con plazo máximo aceptable.','Activar plan alterno simultáneamente — no como segunda opción.','Documentar el acuerdo nuevo por escrito.','Notificar a producción del ajuste con anticipación.'], evitar:['Aceptar sin negociar — el proveedor que avisa da tiempo para negociar.','No activar el alterno asumiendo que el proveedor cumplirá.','Acordar verbalmente sin documentar.'], porQue:'El retraso avisado es una ventana de negociación. A diferencia del retraso sin aviso, el proveedor está comunicando — eso da tiempo para exigir condiciones.' },
+  'P-05': { titulo:'Retraso avisado — Proveedor crítico con inventario limitado', acciones:['Negociar nueva fecha dentro del margen que permite el inventario limitado.','Documentar el nuevo acuerdo por escrito.','Monitorear activamente hasta la entrega.','Si no cumple la nueva fecha → activar P-04.'], evitar:['Aceptar sin negociar fecha específica.','Confiar en que "pronto" es suficiente sin fecha exacta.'], porQue:'El inventario limitado define el margen real de negociación. Si el inventario cubre 5 días, la nueva fecha no puede superar eso.' },
+  'P-06': { titulo:'Retraso avisado — Proveedor no crítico', acciones:['Evaluar si el retraso es aceptable dado el inventario disponible.','Si es aceptable — documentar y aceptar con condición formal.','Si no es aceptable — negociar nueva fecha.','Registrar el evento siempre.'], evitar:['Aceptar sin dejar registro por considerarlo menor.','No comunicar formalmente la aceptación al proveedor.'], porQue:'La acumulación de eventos menores es la que revela patrones reales de confiabilidad.' },
+  'P-07': { titulo:'Sin respuesta — Urgencia alta, proveedor crítico', acciones:['Contactar simultáneamente por dos canales distintos.','Si no hay respuesta en 4 horas → escalar con el nivel superior del proveedor.','Si no hay respuesta en 8 horas → escalar internamente a dirección.','Si no hay respuesta en 24 horas → tratar como P-01.'], evitar:['Esperar más de 4 horas para escalar el canal.','Contactar solo por un canal.','Asumir que el silencio es temporal sin documentarlo.'], porQue:'Un proveedor crítico que no responde bajo urgencia alta es equivalente a un retraso sin aviso. El silencio consume el mismo tiempo que la falla.' },
+  'P-08': { titulo:'Sin respuesta — Urgencia media o baja', acciones:['Contactar por canal formal con plazo explícito: "necesito respuesta antes de [fecha/hora]".','Si no hay respuesta en 48 horas → escalar al nivel superior del proveedor.','Documentar todos los intentos de contacto con fecha y hora.','Si supera 72 horas → tratar el evento como de urgencia alta.'], evitar:['Contactar sin dar plazo explícito.','No documentar los intentos de contacto.'], porQue:'El plazo explícito cumple dos funciones: presiona al proveedor y crea evidencia documentada si el evento escala.' },
+  'P-09': { titulo:'Cambio de condiciones — Impacto alto, proveedor crítico', acciones:['Rechazar el cambio de manera formal y por escrito.','Exigir que se respeten las condiciones originales con plazo de 24 horas.','Si no confirma → negociar bajo condiciones que protejan la continuidad operativa.','Si no hay acuerdo → activar proveedor alterno y documentar el incumplimiento.'], evitar:['Aceptar verbalmente sin documentar.','Negociar sin dejar constancia escrita.','Ceder sin exigir compensación o garantía futura.'], porQue:'Un proveedor crítico que cambia condiciones unilateralmente está transfiriendo riesgo al cliente. La respuesta formal crea los incentivos correctos.' },
+  'P-10': { titulo:'Cambio de condiciones — Impacto bajo o medio', acciones:['Evaluar si el cambio es aceptable dado el contexto actual.','Si es aceptable — documentar formalmente el nuevo acuerdo.','Si no es aceptable — negociar con posición clara antes de responder.','Registrar siempre el motivo del cambio reportado por el proveedor.'], evitar:['Aceptar de manera informal o verbal.','No registrar el motivo del cambio.'], porQue:'Los cambios de condiciones menores son el inicio de cambios mayores. Documentar el motivo permite detectar si hay un patrón.' },
+  'P-11': { titulo:'Entrega incompleta — Afecta producción inmediata', acciones:['Aceptar lo que llegó para no detener producción.','Escalar con el proveedor de inmediato para el complemento con fecha por escrito.','Escalar internamente a dirección para evaluar si se necesita proveedor alterno.','Documentar la diferencia entre lo solicitado y lo recibido.'], evitar:['Rechazar todo — en urgencia alta detiene producción innecesariamente.','Aceptar sin exigir fecha de complemento por escrito.'], porQue:'Cuando la producción está en riesgo, rechazar una entrega parcial es peor que aceptarla. El objetivo inmediato es no parar la línea.' },
+  'P-12': { titulo:'Entrega incompleta — Sin riesgo de paro inmediato', acciones:['Evaluar si lo recibido cubre la necesidad inmediata.','Aceptar con condición formal: complemento entregado antes de [fecha específica].','Documentar la diferencia y el nuevo compromiso por escrito.','Si no cumple la fecha de complemento → tratar como P-01.'], evitar:['Aceptar sin condición de complemento.','No documentar la diferencia entre lo solicitado y lo recibido.'], porQue:'Una entrega incompleta sin urgencia es una negociación con tiempo a favor. Eso permite exigir el complemento con condiciones claras.' },
+  'P-13': { titulo:'Cancelación — Proveedor crítico, producción en riesgo', acciones:['Escalar a dirección de inmediato.','Activar proveedor alterno en las siguientes 2 horas.','Exigir al proveedor explicación formal por escrito.','Evaluar si la relación con este proveedor debe continuar post-evento.','Documentar el impacto operativo completo.'], evitar:['Intentar resolver sin escalar a dirección.','No activar el alterno por no querer "quemar la relación".','Aceptar la cancelación sin exigir explicación formal.'], porQue:'Una cancelación de proveedor crítico sin inventario es la situación de mayor riesgo en el sistema. La relación con el proveedor se evalúa después, no durante la crisis.' },
+  'P-14': { titulo:'Cancelación — Proveedor no crítico', acciones:['Buscar proveedor alterno con tiempo suficiente.','Exigir explicación formal al proveedor por escrito.','Documentar el impacto incluso si fue menor.','Registrar si la cancelación fue prevista o no por el proveedor.'], evitar:['Asumir que porque no es crítico no importa registrar.','No exigir explicación formal.'], porQue:'Una cancelación de proveedor no crítico tiene el menor impacto inmediato. Pero el patrón importa: un proveedor que cancela es un proveedor que no es confiable.' },
+  'P-15': { titulo:'Calidad defectuosa — Riesgo de paro de producción', acciones:['Detener el uso del material defectuoso de inmediato.','Rechazar el lote completo y notificar al proveedor por escrito con evidencia (fotos, mediciones).','Activar proveedor alterno para el material afectado.','Escalar internamente a Calidad y Dirección.','Iniciar proceso de reclamación formal.'], evitar:['Usar parcialmente el material defectuoso "lo que se pueda".','Notificar al proveedor sin evidencia escrita.','No activar el alterno esperando reposición del mismo proveedor.'], porQue:'Usar material defectuoso bajo urgencia traslada el riesgo hacia el cliente final. La evidencia documentada es lo que hace válida la reclamación.' },
+  'P-16': { titulo:'Calidad defectuosa — Sin riesgo de paro inmediato', acciones:['Rechazar el lote y notificar al proveedor por escrito con evidencia.','Coordinar devolución y reposición con fecha comprometida.','Iniciar proceso de reclamación si corresponde.','Documentar el impacto aunque sea menor.'], evitar:['Aceptar el material defectuoso con descuento sin reclamación formal.','No documentar porque "se resolvió rápido".'], porQue:'Aceptar calidad defectuosa con descuento sin reclamación formal establece un precedente que degrada la calidad sistemáticamente.' },
+  'P-23': { titulo:'Sin acuerdo formal previo', accion:'Al resolver este evento, documenta un acuerdo formal con el proveedor para que no vuelva a quedar en el aire si ocurre de nuevo.' },
+  'P-24': { titulo:'Evento repetido sin aprendizaje registrado', accion:'Revisa cómo se manejó la última vez y qué resultado tuvo. Si la decisión anterior falló, no la repitas — documenta qué harás diferente.' }
+};
 
-    window[cbName] = function(result) {
-      clearTimeout(timeout);
-      delete window[cbName];
-      if (document.body.contains(script)) document.body.removeChild(script);
-      onSuccess(result);
-    };
+// ══════════════════════════════════════════════════════════
+// SELECTOR DE PROTOCOLO — lógica determinista
+// ══════════════════════════════════════════════════════════
+function seleccionarProtocolo(ev) {
+  var tipo     = ev.tipoEvento  || '';
+  var critico  = ev.critico     === 'Sí';
+  var inv      = ev.inventario  || '';
+  var urg      = ev.urgencia    || '';
+  var riesgo   = ev.riesgo === 'Sí' || ev.riesgo === 'Probablemente';
+  var impacto  = ev.impacto     || '';
+  var acuerdo  = ev.acuerdoFormal || '';
+  var ocurrido = ev.haOcurrido  || '';
+  var urgAlta  = urg === 'Alto' || urg === 'Crítico';
+  var impAlto  = impacto.indexOf('Alto') >= 0 || impacto.indexOf('Crítico') >= 0;
 
-    script.onerror = function() {
-      clearTimeout(timeout);
-      delete window[cbName];
-      onError && onError();
-    };
+  var id = null;
+  if      (tipo === 'Retraso sin aviso')      { id = critico && inv === 'No' ? 'P-01' : critico ? 'P-02' : 'P-03'; }
+  else if (tipo === 'Retraso avisado')        { id = critico && inv === 'No' ? 'P-04' : critico && inv === 'Limitado' ? 'P-05' : 'P-06'; }
+  else if (tipo === 'No respondió')           { id = urgAlta && critico ? 'P-07' : 'P-08'; }
+  else if (tipo === 'Cambio de condiciones')  { id = impAlto && critico ? 'P-09' : 'P-10'; }
+  else if (tipo === 'Entrega incompleta')     { id = riesgo ? 'P-11' : 'P-12'; }
+  else if (tipo === 'Canceló')               { id = critico && riesgo ? 'P-13' : 'P-14'; }
+  else if (tipo === 'Problema de calidad')    { id = riesgo ? 'P-15' : 'P-16'; }
 
-    script.src = WEBAPP_URL +
-      '?action=submit' +
-      '&data=' + encodeURIComponent(JSON.stringify(data)) +
-      '&cb=' + cbName;
+  var transv = [];
+  if (ocurrido === 'Sí, varias veces')                     transv.push({ id:'P-24', datos:P['P-24'] });
+  if (acuerdo === 'No' || acuerdo === 'No sé')             transv.push({ id:'P-23', datos:P['P-23'] });
 
-    document.body.appendChild(script);
-  }
+  return { id: id, principal: id ? P[id] : null, transv: transv };
+}
 
-  // ── CHECKBOX VISUAL TOGGLE ──────────────────────────────
-  document.querySelectorAll('.checkbox-option input[type="checkbox"]').forEach(cb => {
-    cb.addEventListener('change', () => {
-      const box = cb.parentElement.querySelector('.cb-box');
-      box.textContent = cb.checked ? '✓' : '';
-    });
+// ══════════════════════════════════════════════════════════
+// RENDER DEL PROTOCOLO
+// ══════════════════════════════════════════════════════════
+function mostrarProtocolo(ev) {
+  var sel = seleccionarProtocolo(ev);
+  if (!sel || !sel.principal) { document.getElementById('pFallback').style.display = 'block'; return; }
+
+  document.getElementById('pId').textContent    = sel.id;
+  document.getElementById('pTitulo').textContent = sel.principal.titulo;
+
+  var acc = document.getElementById('pAcciones');
+  acc.innerHTML = '';
+  (sel.principal.acciones || []).forEach(function(a, i) {
+    var d = document.createElement('div'); d.className = 'p-step';
+    d.innerHTML = '<div class="p-num">'+(i+1)+'</div><div class="p-text">'+a+'</div>';
+    acc.appendChild(d);
   });
 
-  // ── MOSTRAR/OCULTAR CAMPO "OTROS" EN DECISIÓN ──────────
-  document.getElementById('cb-decision-otros').addEventListener('change', function() {
-    const input = document.getElementById('otros-decision-texto');
-    input.style.display = this.checked ? 'block' : 'none';
-    if (this.checked) input.focus();
-    else input.value = '';
+  var ev2 = document.getElementById('pEvitar');
+  ev2.innerHTML = '';
+  (sel.principal.evitar || []).forEach(function(item) {
+    var d = document.createElement('div'); d.className = 'p-ev-item';
+    d.innerHTML = '<span class="p-x">✗</span><span>'+item+'</span>';
+    ev2.appendChild(d);
   });
 
-  // ── VALIDATION ─────────────────────────────────────────
-  function validate() {
-    let ok = true;
-    const required = [
-      'fecha','nombre','puesto','proveedor',
-      'tipoEvento','haOcurrido','decisionesDistintas',
-      'inventario','riesgo','urgencia','impacto',
-      'decisionInmediata','fechaAcordada','acuerdoFormal',
-      'tiempoDecision','proveedorActivado','ordenes','valor'
-    ];
-    required.forEach(name => {
-      const field = document.getElementById('f-' + name);
-      const el    = document.getElementById(name);
-      if (!el || !el.value.trim()) {
-        field && field.classList.add('error');
-        ok = false;
-      } else {
-        field && field.classList.remove('error');
-      }
+  document.getElementById('pPorQue').textContent = sel.principal.porQue || '';
+
+  if (sel.transv.length > 0) {
+    var lista = document.getElementById('pTransvLista');
+    lista.innerHTML = '';
+    sel.transv.forEach(function(t) {
+      var d = document.createElement('div'); d.className = 'p-transv-item';
+      d.innerHTML = '<div class="p-tbadge">'+t.id+'</div>'+
+        '<div><div class="p-ttitulo">'+t.datos.titulo+'</div>'+
+        '<div class="p-taccion">'+t.datos.accion+'</div></div>';
+      lista.appendChild(d);
     });
-
-    const criticoOk = document.querySelector('input[name="critico"]:checked');
-    document.getElementById('f-critico').classList.toggle('error', !criticoOk);
-    if (!criticoOk) ok = false;
-
-    const alternativaOk = document.querySelector('input[name="alternativa"]:checked');
-    document.getElementById('f-alternativa').classList.toggle('error', !alternativaOk);
-    if (!alternativaOk) ok = false;
-
-    const decisionOk = document.querySelectorAll('input[name="decision"]:checked').length > 0;
-    document.getElementById('f-decision').classList.toggle('error', !decisionOk);
-    if (!decisionOk) ok = false;
-
-    return ok;
+    document.getElementById('pTransvSection').style.display = 'block';
   }
 
-  // ── FORM SUBMIT ─────────────────────────────────────────
-  document.getElementById('eventoForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    if (!validate()) {
-      document.querySelector('.field.error')?.scrollIntoView({behavior:'smooth', block:'center'});
-      return;
-    }
+  document.getElementById('protocoloWrapper').style.display = 'block';
+}
 
-    const btn = document.getElementById('submitBtn');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span>Registrando...';
+// ── JSONP HELPER ───────────────────────────────────────────
+function _callWebApp(data, onSuccess, onError) {
+  var cbName = 'mapa_cb_' + Date.now();
+  var script = document.createElement('script');
+  var timeout = setTimeout(function() {
+    delete window[cbName];
+    if (document.body.contains(script)) document.body.removeChild(script);
+    onError && onError();
+  }, 15000);
+  window[cbName] = function(result) {
+    clearTimeout(timeout);
+    delete window[cbName];
+    if (document.body.contains(script)) document.body.removeChild(script);
+    onSuccess(result);
+  };
+  script.onerror = function() {
+    clearTimeout(timeout);
+    delete window[cbName];
+    onError && onError();
+  };
+  script.src = WEBAPP_URL + '?action=submit&data=' + encodeURIComponent(JSON.stringify(data)) + '&cb=' + cbName;
+  document.body.appendChild(script);
+}
 
-    const otrosDecisionTexto = document.getElementById('otros-decision-texto').value.trim();
-    const decisiones = Array.from(
-      document.querySelectorAll('input[name="decision"]:checked')
-    ).map(cb => (cb.value === 'Otros' && otrosDecisionTexto) ? 'Otros: ' + otrosDecisionTexto : cb.value).join(', ');
+// ── CHECKBOX TOGGLE ────────────────────────────────────────
+document.querySelectorAll('.checkbox-option input[type="checkbox"]').forEach(function(cb) {
+  cb.addEventListener('change', function() {
+    cb.parentElement.querySelector('.cb-box').textContent = cb.checked ? '✓' : '';
+  });
+});
+document.getElementById('cb-decision-otros').addEventListener('change', function() {
+  var inp = document.getElementById('otros-decision-texto');
+  inp.style.display = this.checked ? 'block' : 'none';
+  if (this.checked) inp.focus(); else inp.value = '';
+});
 
-    const data = {
-      fecha:               document.getElementById('fecha').value,
-      nombre:              document.getElementById('nombre').value.trim(),
-      puesto:              document.getElementById('puesto').value.trim(),
-      proveedor:           document.getElementById('proveedor').value.trim(),
-      critico:             document.querySelector('input[name="critico"]:checked').value,
-      alternativa:         document.querySelector('input[name="alternativa"]:checked').value,
-      tipoEvento:          document.getElementById('tipoEvento').value,
-      haOcurrido:          document.getElementById('haOcurrido').value,
-      decisionesDistintas: document.getElementById('decisionesDistintas').value,
-      inventario:          document.getElementById('inventario').value,
-      riesgo:              document.getElementById('riesgo').value,
-      urgencia:            document.getElementById('urgencia').value,
-      impacto:             document.getElementById('impacto').value,
-      decisionInmediata:   document.getElementById('decisionInmediata').value,
-      fechaAcordada:       document.getElementById('fechaAcordada').value,
-      acuerdoFormal:       document.getElementById('acuerdoFormal').value,
-      tiempoDecision:      document.getElementById('tiempoDecision').value,
-      decision:            decisiones,
-      proveedorActivado:   document.getElementById('proveedorActivado').value,
-      ordenes:             document.getElementById('ordenes').value,
-      valor:               document.getElementById('valor').value,
-      observaciones:       document.getElementById('observaciones').value.trim()
-    };
+// ── VALIDACIÓN ─────────────────────────────────────────────
+function validate() {
+  var ok = true;
+  ['fecha','nombre','puesto','proveedor','tipoEvento','haOcurrido','decisionesDistintas',
+   'inventario','riesgo','urgencia','impacto','decisionInmediata','fechaAcordada',
+   'acuerdoFormal','tiempoDecision','proveedorActivado','ordenes','valor'
+  ].forEach(function(name) {
+    var f = document.getElementById('f-'+name), el = document.getElementById(name);
+    if (!el || !el.value.trim()) { f && f.classList.add('error'); ok = false; }
+    else { f && f.classList.remove('error'); }
+  });
+  var criticoOk = document.querySelector('input[name="critico"]:checked');
+  document.getElementById('f-critico').classList.toggle('error', !criticoOk);
+  if (!criticoOk) ok = false;
+  var alternativaOk = document.querySelector('input[name="alternativa"]:checked');
+  document.getElementById('f-alternativa').classList.toggle('error', !alternativaOk);
+  if (!alternativaOk) ok = false;
+  var decisionOk = document.querySelectorAll('input[name="decision"]:checked').length > 0;
+  document.getElementById('f-decision').classList.toggle('error', !decisionOk);
+  if (!decisionOk) ok = false;
+  return ok;
+}
 
-    data._tipo = 'evento';
+// ── SUBMIT ─────────────────────────────────────────────────
+document.getElementById('eventoForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  if (!validate()) {
+    var first = document.querySelector('.field.error');
+    if (first) first.scrollIntoView({behavior:'smooth', block:'center'});
+    return;
+  }
 
-    _callWebApp(data, function(result) {
-      if (result.success) {
-        document.getElementById('eventIdDisplay').textContent = result.id;
-        document.querySelector('.form-body').style.display = 'none';
-        document.querySelector('.submit-area').style.display = 'none';
-        document.getElementById('successScreen').style.display = 'block';
-      } else {
-        btn.disabled = false;
-        btn.innerHTML = 'Registrar Evento';
-        alert('Error: ' + (result.error || 'Desconocido') + '\nIntenta de nuevo.');
-      }
-    }, function() {
+  var btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Registrando...';
+
+  var otrosTexto = document.getElementById('otros-decision-texto').value.trim();
+  var decisiones = Array.from(document.querySelectorAll('input[name="decision"]:checked'))
+    .map(function(cb) { return (cb.value==='Otros' && otrosTexto) ? 'Otros: '+otrosTexto : cb.value; }).join(', ');
+
+  var data = {
+    _tipo:               'evento',
+    fecha:               document.getElementById('fecha').value,
+    nombre:              document.getElementById('nombre').value.trim(),
+    puesto:              document.getElementById('puesto').value.trim(),
+    proveedor:           document.getElementById('proveedor').value.trim(),
+    critico:             document.querySelector('input[name="critico"]:checked').value,
+    alternativa:         document.querySelector('input[name="alternativa"]:checked').value,
+    tipoEvento:          document.getElementById('tipoEvento').value,
+    haOcurrido:          document.getElementById('haOcurrido').value,
+    decisionesDistintas: document.getElementById('decisionesDistintas').value,
+    inventario:          document.getElementById('inventario').value,
+    riesgo:              document.getElementById('riesgo').value,
+    urgencia:            document.getElementById('urgencia').value,
+    impacto:             document.getElementById('impacto').value,
+    decisionInmediata:   document.getElementById('decisionInmediata').value,
+    fechaAcordada:       document.getElementById('fechaAcordada').value,
+    acuerdoFormal:       document.getElementById('acuerdoFormal').value,
+    tiempoDecision:      document.getElementById('tiempoDecision').value,
+    decision:            decisiones,
+    proveedorActivado:   document.getElementById('proveedorActivado').value,
+    ordenes:             document.getElementById('ordenes').value,
+    valor:               document.getElementById('valor').value,
+    observaciones:       document.getElementById('observaciones').value.trim()
+  };
+
+  _callWebApp(data, function(result) {
+    if (result.success) {
+      document.getElementById('eventIdDisplay').textContent    = result.id;
+      document.querySelector('.form-body').style.display       = 'none';
+      document.querySelector('.submit-area').style.display     = 'none';
+      document.getElementById('successScreen').style.display   = 'block';
+      mostrarProtocolo(data);   // ← usa data directamente, sin necesitar el backend
+      window.scrollTo({top:0, behavior:'smooth'});
+    } else {
       btn.disabled = false;
       btn.innerHTML = 'Registrar Evento';
-      alert('Error de conexión. Verifica tu internet e intenta de nuevo.');
-    });
-  });
-
-  // ── RESET ───────────────────────────────────────────────
-  function resetForm() {
-    document.getElementById('eventoForm').reset();
-    document.querySelectorAll('.field.error').forEach(f => f.classList.remove('error'));
-    document.querySelectorAll('.cb-box').forEach(b => b.textContent = '');
-    const otrosInput = document.getElementById('otros-decision-texto');
-    otrosInput.value = '';
-    otrosInput.style.display = 'none';
-    document.querySelector('.form-body').style.display = 'block';
-    document.querySelector('.submit-area').style.display = 'block';
-    document.getElementById('successScreen').style.display = 'none';
-    const btn = document.getElementById('submitBtn');
+      alert('Error: ' + (result.error || 'Desconocido') + '\nIntenta de nuevo.');
+    }
+  }, function() {
     btn.disabled = false;
     btn.innerHTML = 'Registrar Evento';
-    window.scrollTo({top: 0, behavior: 'smooth'});
-  }
+    alert('Error de conexión. Verifica tu internet e intenta de nuevo.');
+  });
+});
+
+// ── RESET ───────────────────────────────────────────────────
+function resetForm() {
+  document.getElementById('eventoForm').reset();
+  document.querySelectorAll('.field.error').forEach(function(f){f.classList.remove('error');});
+  document.querySelectorAll('.cb-box').forEach(function(b){b.textContent='';});
+  var oi = document.getElementById('otros-decision-texto'); oi.value=''; oi.style.display='none';
+  document.querySelector('.form-body').style.display      = 'block';
+  document.querySelector('.submit-area').style.display    = 'block';
+  document.getElementById('successScreen').style.display  = 'none';
+  document.getElementById('protocoloWrapper').style.display = 'none';
+  document.getElementById('pFallback').style.display       = 'none';
+  document.getElementById('pTransvSection').style.display  = 'none';
+  var btn = document.getElementById('submitBtn');
+  btn.disabled = false; btn.innerHTML = 'Registrar Evento';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
 </script>
 </body>
 </html>
