@@ -499,7 +499,7 @@ function _callWebApp(data, onSuccess, onError) {
     delete window[cbName];
     if (document.body.contains(script)) document.body.removeChild(script);
     onError && onError();
-  }, 15000);
+  }, 30000);
   window[cbName] = function(result) {
     clearTimeout(timeout);
     delete window[cbName];
